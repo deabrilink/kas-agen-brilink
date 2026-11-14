@@ -4,6 +4,9 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <meta name="theme-color" content="#10264a">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700;800&display=swap" rel="stylesheet">
 <title>Kas Agen BRILink — Prototype</title>
 <style>
 :root{
@@ -287,6 +290,28 @@ tr:hover td{background:#f9fbfe}
  .stat .value{font-size:18px}
  .panel{padding:15px;border-radius:15px}
 }
+
+
+/* Typography refinement — elegant financial interface */
+body,button,input,select,textarea{
+  font-family:"Manrope", "Segoe UI", Arial, sans-serif !important;
+  font-optical-sizing:auto;
+  font-synthesis:none;
+  -webkit-font-smoothing:antialiased;
+  -moz-osx-font-smoothing:grayscale;
+}
+h1,h2,h3,h4,.brand strong,.page-heading strong,.page-title h1{
+  font-family:"Manrope", "Segoe UI", Arial, sans-serif;
+  letter-spacing:-.045em;
+}
+h1,h2,.page-title h1{font-weight:800}
+h3,h4,.brand strong,.page-heading strong{font-weight:750}
+p,.muted,small{letter-spacing:-.012em}
+.stat .value,.amount,.balance,.money,.currency,.number{
+  font-variant-numeric:tabular-nums lining-nums;
+  letter-spacing:-.035em;
+}
+.nav button,.btn,button{letter-spacing:-.018em}
 
 </style>
 </head>
