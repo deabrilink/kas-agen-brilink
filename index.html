@@ -389,6 +389,53 @@ p,.muted,small{letter-spacing:-.012em}
  .saldo-stats .kpi-card small{font-size:8px}
 }
 
+
+/* Premium glass KPI summary for Saldo & Rekening */
+.saldo-stats .stat.kpi-card{
+ position:relative;isolation:isolate;overflow:hidden;
+ min-height:116px;padding:16px 18px;border-radius:17px;
+ border:1px solid rgba(255,255,255,.82);
+ box-shadow:0 8px 24px rgba(29,62,105,.075),inset 0 1px 0 rgba(255,255,255,.8);
+ backdrop-filter:blur(14px);-webkit-backdrop-filter:blur(14px);
+}
+.saldo-stats .stat.kpi-card:after{
+ content:"";display:block;position:absolute;inset:0;z-index:-1;pointer-events:none;
+ background:linear-gradient(135deg,rgba(255,255,255,.62),rgba(255,255,255,.12) 55%,rgba(255,255,255,.28));
+}
+.saldo-stats .stat.kpi-card .kpi-icon{
+ position:absolute;right:15px;top:14px;width:34px;height:34px;
+ display:grid;place-items:center;border-radius:11px;font-size:19px;font-weight:800;
+ border:1px solid rgba(255,255,255,.65);box-shadow:0 3px 10px rgba(25,55,90,.06);
+}
+.saldo-stats .kpi-card .label{font-size:10px;font-weight:750;letter-spacing:.02em}
+.saldo-stats .kpi-card .value{font-size:21px;font-weight:850;margin:12px 0 4px;letter-spacing:-.5px}
+.saldo-stats .kpi-card small{font-size:9px;line-height:1.4}
+.saldo-stats .kpi-primary{
+ background:linear-gradient(135deg,rgba(226,239,255,.91),rgba(244,249,255,.78));
+ color:#123C70;border-color:rgba(115,166,224,.45)!important;
+ box-shadow:0 9px 25px rgba(31,91,157,.12),inset 0 1px 0 #fff!important;
+}
+.saldo-stats .kpi-primary .label,.saldo-stats .kpi-primary small{color:#64809D}
+.saldo-stats .kpi-primary .kpi-icon{background:rgba(205,228,255,.68);color:#1765BD}
+.saldo-stats .kpi-purple{background:linear-gradient(135deg,rgba(241,236,255,.88),rgba(250,248,255,.74));color:#49317F;border-color:rgba(179,157,230,.42)!important}
+.saldo-stats .kpi-purple .label,.saldo-stats .kpi-purple small{color:#8978A8}
+.saldo-stats .kpi-purple .kpi-icon{background:rgba(226,216,255,.7);color:#7650C8}
+.saldo-stats .kpi-green{background:linear-gradient(135deg,rgba(232,248,241,.9),rgba(248,255,251,.76));color:#146344;border-color:rgba(135,205,169,.42)!important}
+.saldo-stats .kpi-green .label,.saldo-stats .kpi-green small{color:#6D9A84}
+.saldo-stats .kpi-green .kpi-icon{background:rgba(210,240,225,.72);color:#16875B}
+.saldo-stats .kpi-orange{background:linear-gradient(135deg,rgba(255,243,230,.92),rgba(255,251,246,.76));color:#A95814;border-color:rgba(239,184,135,.45)!important}
+.saldo-stats .kpi-orange .label,.saldo-stats .kpi-orange small{color:#B58A65}
+.saldo-stats .kpi-orange .kpi-icon{background:rgba(255,228,200,.75);color:#D87920}
+.saldo-stats .kpi-primary .balance-value-row{width:100%;justify-content:flex-start;gap:8px}
+.saldo-stats .kpi-primary .balance-visibility-btn{margin-left:auto;background:rgba(255,255,255,.48);border-color:rgba(80,133,190,.25);color:#1765BD;backdrop-filter:blur(8px)}
+@media(max-width:760px){
+ .saldo-stats .stat.kpi-card{min-height:94px;padding:12px;border-radius:14px}
+ .saldo-stats .kpi-card .kpi-icon{right:10px;top:10px;width:28px;height:28px;font-size:16px}
+ .saldo-stats .kpi-card .value{font-size:17px;margin:9px 0 3px}
+ .saldo-stats .kpi-card .label{font-size:9px}
+ .saldo-stats .kpi-card small{font-size:8px}
+}
+
 </style>
 </head>
 <body>
@@ -500,7 +547,7 @@ p,.muted,small{letter-spacing:-.012em}
       <!-- SALDO -->
       <section class="page" id="page-saldo">
         <div class="page-title"><div><h1>Saldo & Rekening</h1><p>Pantau saldo seluruh rekening, aplikasi, dan uang tunai.</p></div><button class="btn btn-primary" id="openOpeningModalBtn" type="button" onclick="openOpeningModal()">＋ Input Saldo Awal</button></div>
-        <div class="grid stats saldo-stats"><div class="stat kpi-card kpi-blue"><span class="kpi-icon" aria-hidden="true">▣</span><div class="label">Total Saldo Tersedia</div><div class="value balance-value-row"><span id="balanceTotalValue">Rp 0</span><button class="balance-visibility-btn" id="toggleBalanceVisibility" type="button" onclick="toggleBalanceVisibility()" aria-label="Sembunyikan saldo" title="Sembunyikan saldo" aria-pressed="false"><svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M2 12s3.6-7 10-7 10 7 10 7-3.6 7-10 7S2 12 2 12Z"/><circle cx="12" cy="12" r="3"/></svg></button></div><small>Seluruh rekening dan kas</small></div><div class="stat kpi-card kpi-purple"><span class="kpi-icon" aria-hidden="true">◇</span><div class="label">Total Piutang</div><div class="value" id="balanceDebt">Rp 0</div><small>Hutang pelanggan</small></div><div class="stat kpi-card kpi-green"><span class="kpi-icon" aria-hidden="true">▤</span><div class="label">Jumlah Rekening</div><div class="value">7</div><small>Termasuk uang cash</small></div><div class="stat kpi-card kpi-orange"><span class="kpi-icon" aria-hidden="true">↔</span><div class="label">Mutasi Tercatat</div><div class="value" id="balanceMutations">0</div><small>Seluruh aktivitas saldo</small></div></div>
+        <div class="grid stats saldo-stats"><div class="stat kpi-card kpi-primary"><span class="kpi-icon" aria-hidden="true">▣</span><div class="label">Total Saldo Tersedia</div><div class="value balance-value-row"><span id="balanceTotalValue">Rp 0</span><button class="balance-visibility-btn" id="toggleBalanceVisibility" type="button" onclick="toggleBalanceVisibility()" aria-label="Sembunyikan saldo" title="Sembunyikan saldo" aria-pressed="false"><svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M2 12s3.6-7 10-7 10 7 10 7-3.6 7-10 7S2 12 2 12Z"/><circle cx="12" cy="12" r="3"/></svg></button></div><small>Seluruh rekening dan kas</small></div><div class="stat kpi-card kpi-purple"><span class="kpi-icon" aria-hidden="true">◇</span><div class="label">Total Piutang</div><div class="value" id="balanceDebt">Rp 0</div><small>Hutang pelanggan</small></div><div class="stat kpi-card kpi-green"><span class="kpi-icon" aria-hidden="true">▤</span><div class="label">Jumlah Rekening</div><div class="value">7</div><small>Termasuk uang cash</small></div><div class="stat kpi-card kpi-orange"><span class="kpi-icon" aria-hidden="true">↔</span><div class="label">Mutasi Tercatat</div><div class="value" id="balanceMutations">0</div><small>Seluruh aktivitas saldo</small></div></div>
         <div class="panel"><h3>Daftar Saldo</h3><div class="grid account-grid" id="balanceAccounts"></div></div>
         <div class="grid two-col section-gap"><div class="panel"><h3>⚠ Peringatan Saldo Minimum</h3><p class="muted">Atur batas saldo aman untuk setiap rekening. Peringatan muncul otomatis saat saldo di bawah batas.</p><div class="table-wrap"><table><thead><tr><th>Rekening</th><th>Saldo Saat Ini</th><th>Batas Minimum</th><th>Status</th></tr></thead><tbody id="minimumBalanceTable"></tbody></table></div></div><div class="panel"><h3>Rekonsiliasi Saldo Rekening</h3><p class="muted">Masukkan saldo aktual dari aplikasi bank atau hitung uang tunai, lalu bandingkan dengan saldo pembukuan.</p><div class="table-wrap"><table><thead><tr><th>Rekening</th><th>Saldo Sistem</th><th>Saldo Aktual</th><th>Selisih</th></tr></thead><tbody id="reconciliationTable"></tbody></table></div><div class="notice section-gap" id="reconciliationStatus">Isi saldo aktual untuk memulai rekonsiliasi.</div></div></div>
         <div class="panel section-gap"><h3>Mutasi Saldo Terbaru</h3><div class="table-wrap"><table><thead><tr><th>Tanggal</th><th>Rekening</th><th>Sumber</th><th>Jenis</th><th>Nominal</th></tr></thead><tbody id="ledgerTable"></tbody></table></div></div>
