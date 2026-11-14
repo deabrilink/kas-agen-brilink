@@ -82,47 +82,64 @@ button{cursor:pointer}
 .balance-value-row #balanceTotalValue{min-width:0;overflow-wrap:anywhere}
 /* Frosted-glass cards khusus daftar saldo pada halaman Saldo & Rekening */
 #balanceAccounts .account{
-  position:relative;
-  overflow:hidden;
-  background:linear-gradient(135deg,rgba(255,255,255,.76),rgba(235,243,255,.48));
-  border:1px solid rgba(255,255,255,.92);
-  box-shadow:inset 0 1px 0 rgba(255,255,255,.88),0 8px 20px rgba(31,67,117,.07);
-  backdrop-filter:blur(16px);
-  -webkit-backdrop-filter:blur(16px);
-  transition:transform .2s ease,box-shadow .2s ease,border-color .2s ease;
+  position:relative;isolation:isolate;overflow:hidden;min-height:184px;aspect-ratio:1.72/1;
+  padding:18px 19px;border-radius:19px;border:1px solid rgba(255,255,255,.58);
+  display:flex;flex-direction:column;justify-content:space-between;
+  color:#fff;box-shadow:0 10px 22px rgba(19,58,111,.16);
+  background:linear-gradient(135deg,#0874df 0%,#064aa0 58%,#032e70 100%);
+  transition:transform .2s ease,box-shadow .2s ease;
 }
 #balanceAccounts .account:before{
-  content:"";position:absolute;inset:0 auto 0 0;width:3px;
-  background:linear-gradient(180deg,rgba(255,255,255,.95),rgba(91,143,208,.42));
+  content:"";position:absolute;z-index:-1;width:78%;height:145%;right:-24%;top:-55%;
+  border:1px solid rgba(255,255,255,.18);border-radius:50%;
+  box-shadow:0 0 0 16px rgba(255,255,255,.045),0 0 0 34px rgba(255,255,255,.035);
+  transform:rotate(-24deg);
 }
-#balanceAccounts .account:hover{
-  transform:translateY(-2px);
-  border-color:rgba(255,255,255,1);
-  box-shadow:inset 0 1px 0 rgba(255,255,255,.95),0 12px 24px rgba(31,67,117,.12);
+#balanceAccounts .account:after{
+  content:"";position:absolute;z-index:-1;left:0;right:0;bottom:0;height:42%;
+  background:linear-gradient(155deg,transparent 15%,rgba(255,255,255,.10) 16%,transparent 42%,rgba(0,0,0,.13) 100%);
+  pointer-events:none;
 }
+#balanceAccounts .account:hover{transform:translateY(-3px);box-shadow:0 15px 28px rgba(19,58,111,.22)}
+#balanceAccounts .account .name{
+  color:#fff;font-size:clamp(14px,1.2vw,19px);font-weight:850;letter-spacing:-.35px;
+  text-transform:uppercase;line-height:1.15;max-width:65%;text-shadow:0 1px 2px rgba(0,0,0,.16)
+}
+#balanceAccounts .account .card-middle{display:flex;align-items:center;justify-content:space-between;gap:12px;margin-top:5px}
+#balanceAccounts .account .card-chip{
+  width:39px;height:29px;border-radius:7px;flex:0 0 auto;
+  background:linear-gradient(135deg,#fff0a8,#e8b83e 48%,#fff0a8);
+  border:1px solid rgba(255,255,255,.58);box-shadow:0 2px 5px rgba(0,0,0,.16);
+  position:relative;overflow:hidden
+}
+#balanceAccounts .account .card-chip:before,#balanceAccounts .account .card-chip:after{
+  content:"";position:absolute;background:rgba(151,105,20,.38)
+}
+#balanceAccounts .account .card-chip:before{left:33%;right:33%;top:0;bottom:0;border-left:1px solid rgba(151,105,20,.35);border-right:1px solid rgba(151,105,20,.35)}
+#balanceAccounts .account .card-chip:after{top:33%;bottom:33%;left:0;right:0;border-top:1px solid rgba(151,105,20,.35);border-bottom:1px solid rgba(151,105,20,.35)}
+#balanceAccounts .account .contactless{font-size:22px;line-height:1;color:rgba(255,255,255,.9);margin-right:auto}
+#balanceAccounts .account .amount-block{text-align:right;margin-left:auto;min-width:0}
+#balanceAccounts .account .amount{
+  color:#fff;font-size:clamp(20px,1.7vw,27px);font-weight:900;letter-spacing:-.8px;
+  line-height:1.1;margin:0;text-shadow:0 2px 4px rgba(0,0,0,.18);white-space:nowrap
+}
+#balanceAccounts .account small{display:block;color:rgba(255,255,255,.88);font-size:11px;font-weight:600;margin-top:5px}
+#balanceAccounts .account .card-number{font-size:10px;font-weight:650;letter-spacing:1px;color:rgba(255,255,255,.88);margin-top:6px}
 #balanceAccounts .account.account-bri{
-  background-image:linear-gradient(100deg,rgba(255,255,255,.74),rgba(255,255,255,.48)),url('./bg-bri.png');
-  background-size:cover;
-  background-position:center;
-  border:1px solid rgba(255,255,255,.95);
-  box-shadow:inset 0 1px 0 rgba(255,255,255,.9),0 10px 24px rgba(22,83,160,.12);
+  background-image:linear-gradient(100deg,rgba(0,77,170,.08),rgba(0,45,115,.04)),url('./bg-bri.png');
+  background-size:cover;background-position:center;border-color:rgba(255,255,255,.65)
 }
-#balanceAccounts .account.account-bri .name{color:#123e7a;font-weight:800}
-#balanceAccounts .account.account-bri .amount{color:#073b88;text-shadow:0 1px 0 rgba(255,255,255,.6)}
-#balanceAccounts .account.account-bri small{color:#315b91}
 #balanceAccounts .account.account-mandiri{
-  background-image:linear-gradient(100deg,rgba(255,255,255,.78),rgba(255,255,255,.56)),url('./bg-mandiri.png');
-  background-size:cover;
-  background-position:center;
-  border:1px solid rgba(255,255,255,.96);
-  box-shadow:inset 0 1px 0 rgba(255,255,255,.92),0 10px 24px rgba(22,83,160,.12);
+  background-image:linear-gradient(100deg,rgba(0,38,88,.10),rgba(0,31,74,.10)),url('./bg-mandiri.png');
+  background-size:cover;background-position:center;border-color:rgba(255,255,255,.65)
 }
-#balanceAccounts .account.account-mandiri .name{color:#123e7a;font-weight:800}
-#balanceAccounts .account.account-mandiri .amount{color:#073b88;text-shadow:0 1px 0 rgba(255,255,255,.65)}
-#balanceAccounts .account.account-mandiri small{color:#315b91}
-#balanceAccounts .account .name{color:#58708f;letter-spacing:.25px}
-#balanceAccounts .account .amount{color:#15365f}
-#balanceAccounts .account small{color:#7b8da5}
+#balanceAccounts .account.account-bni{background:linear-gradient(130deg,#087f88 0%,#00616b 60%,#06434c 100%)}
+#balanceAccounts .account.account-order-kuota{background:linear-gradient(130deg,#7138d2 0%,#4b1da6 62%,#30116f 100%)}
+#balanceAccounts .account.account-seabank{background:linear-gradient(130deg,#ff791c 0%,#e94b08 62%,#a92c00 100%)}
+#balanceAccounts .account.account-dana{background:linear-gradient(130deg,#13a5f4 0%,#0875d4 58%,#064b9e 100%)}
+#balanceAccounts .account.account-uang-cash{background:linear-gradient(130deg,#0aa66b 0%,#07804f 58%,#045a3d 100%)}
+#balanceAccounts .account.account-bri .name,#balanceAccounts .account.account-mandiri .name,
+#balanceAccounts .account.account-bri .amount,#balanceAccounts .account.account-mandiri .amount{color:#fff}
 /* Modal input saldo awal */
 .modal-backdrop{display:none;position:fixed;inset:0;z-index:80;padding:18px;align-items:center;justify-content:center;background:rgba(8,20,40,.48);backdrop-filter:blur(7px);-webkit-backdrop-filter:blur(7px)}
 .modal-backdrop.show{display:flex}
@@ -648,7 +665,7 @@ function addMove(account,amount,source,type,detail='',dateValue=nowLocal()){
 }
 function allDebtTotals(){let total=0,paid=0;debts.forEach(d=>{total+=d.amount;paid+=payments.filter(p=>p.debtId===d.id).reduce((s,p)=>s+p.amount,0)});return {total,paid,remaining:total-paid}}
 function renderAccounts(target){
- document.getElementById(target).innerHTML=ACCOUNTS.map(a=>`<div class="account ${a==='BRI'?'account-bri':a==='MANDIRI'?'account-mandiri':''}"><div class="name">${a}</div><div class="amount">${money(balance(a))}</div><small>Saldo tersedia</small></div>`).join('');
+ document.getElementById(target).innerHTML=ACCOUNTS.map(a=>{const key=({'BRI':'bri','MANDIRI':'mandiri','BNI':'bni','ORDER KUOTA':'order-kuota','SEABANK':'seabank','DANA':'dana','UANG CASH':'uang-cash'}[a]||'');return `<div class="account ${key?'account-'+key:''}"><div class="name">${a}</div><div class="card-middle"><span class="card-chip" aria-hidden="true"></span><span class="contactless" aria-hidden="true">)))</span><div class="amount-block"><div class="amount">${money(balance(a))}</div><small>Saldo tersedia</small></div></div></div>`}).join('');
 }
 function renderTables(){
  const q=(document.getElementById('trxFilter')?.value||'').toLowerCase(),type=document.getElementById('trxTypeFilter')?.value||'';
