@@ -82,8 +82,8 @@ button{cursor:pointer}
 .balance-value-row #balanceTotalValue{min-width:0;overflow-wrap:anywhere}
 /* Frosted-glass cards khusus daftar saldo pada halaman Saldo & Rekening */
 #balanceAccounts .account{
-  position:relative;isolation:isolate;overflow:hidden;min-width:0;min-height:136px;aspect-ratio:1.85/1;box-sizing:border-box;
-  padding:13px 15px;border-radius:15px;border:1px solid rgba(255,255,255,.58);
+  position:relative;isolation:isolate;overflow:hidden;min-width:0;height:104px;min-height:104px;aspect-ratio:auto;box-sizing:border-box;
+  padding:10px 12px;border-radius:13px;border:1px solid rgba(255,255,255,.58);
   display:flex;flex-direction:column;justify-content:space-between;
   color:#fff;box-shadow:0 10px 22px rgba(19,58,111,.16);
   background:linear-gradient(135deg,#0874df 0%,#064aa0 58%,#032e70 100%);
@@ -102,12 +102,12 @@ button{cursor:pointer}
 }
 #balanceAccounts .account:hover{transform:translateY(-3px);box-shadow:0 15px 28px rgba(19,58,111,.22)}
 #balanceAccounts .account .name{
-  color:#fff;font-size:clamp(12px,1vw,15px);font-weight:850;letter-spacing:-.35px;
+  color:#fff;font-size:12px;font-weight:800;letter-spacing:-.35px;
   text-transform:uppercase;line-height:1.15;max-width:65%;text-shadow:0 1px 2px rgba(0,0,0,.16)
 }
 #balanceAccounts .account .card-middle{display:flex;align-items:center;justify-content:space-between;gap:8px;margin-top:4px;min-width:0}
 #balanceAccounts .account .card-chip{
-  width:34px;height:25px;border-radius:7px;flex:0 0 auto;
+  width:29px;height:21px;border-radius:6px;flex:0 0 auto;
   background:linear-gradient(135deg,#fff0a8,#e8b83e 48%,#fff0a8);
   border:1px solid rgba(255,255,255,.58);box-shadow:0 2px 5px rgba(0,0,0,.16);
   position:relative;overflow:hidden
@@ -117,10 +117,10 @@ button{cursor:pointer}
 }
 #balanceAccounts .account .card-chip:before{left:33%;right:33%;top:0;bottom:0;border-left:1px solid rgba(151,105,20,.35);border-right:1px solid rgba(151,105,20,.35)}
 #balanceAccounts .account .card-chip:after{top:33%;bottom:33%;left:0;right:0;border-top:1px solid rgba(151,105,20,.35);border-bottom:1px solid rgba(151,105,20,.35)}
-#balanceAccounts .account .contactless{font-size:18px;line-height:1;color:rgba(255,255,255,.9);margin-right:auto}
+#balanceAccounts .account .contactless{font-size:16px;line-height:1;color:rgba(255,255,255,.9);margin-right:auto}
 #balanceAccounts .account .amount-block{text-align:right;margin-left:auto;min-width:0}
 #balanceAccounts .account .amount{
-  color:#fff;font-size:clamp(17px,1.35vw,22px);font-weight:900;letter-spacing:-.8px;
+  color:#fff;font-size:17px;font-weight:850;letter-spacing:-.8px;
   line-height:1.1;margin:0;text-shadow:0 2px 4px rgba(0,0,0,.18);white-space:nowrap
 }
 #balanceAccounts .account small{display:block;color:rgba(255,255,255,.88);font-size:11px;font-weight:600;margin-top:5px}
@@ -133,11 +133,10 @@ button{cursor:pointer}
   background-image:linear-gradient(100deg,rgba(0,38,88,.10),rgba(0,31,74,.10)),url('./bg-mandiri.png');
   background-size:cover;background-position:center;border-color:rgba(255,255,255,.65)
 }
-#balanceAccounts .account.account-bni{background:linear-gradient(130deg,#087f88 0%,#00616b 60%,#06434c 100%)}
-#balanceAccounts .account.account-order-kuota{background:linear-gradient(130deg,#7138d2 0%,#4b1da6 62%,#30116f 100%)}
-#balanceAccounts .account.account-seabank{background:linear-gradient(130deg,#ff791c 0%,#e94b08 62%,#a92c00 100%)}
-#balanceAccounts .account.account-dana{background:linear-gradient(130deg,#13a5f4 0%,#0875d4 58%,#064b9e 100%)}
-#balanceAccounts .account.account-uang-cash{background:linear-gradient(130deg,#0aa66b 0%,#07804f 58%,#045a3d 100%)}
+#balanceAccounts .account.account-bni,#balanceAccounts .account.account-order-kuota,#balanceAccounts .account.account-seabank,#balanceAccounts .account.account-dana,#balanceAccounts .account.account-uang-cash{background:#f1f5fb;border-color:#e1e8f2;box-shadow:0 5px 12px rgba(19,58,111,.07)}
+#balanceAccounts .account.account-bni:before,#balanceAccounts .account.account-bni:after,#balanceAccounts .account.account-order-kuota:before,#balanceAccounts .account.account-order-kuota:after,#balanceAccounts .account.account-seabank:before,#balanceAccounts .account.account-seabank:after,#balanceAccounts .account.account-dana:before,#balanceAccounts .account.account-dana:after,#balanceAccounts .account.account-uang-cash:before,#balanceAccounts .account.account-uang-cash:after{display:none}
+#balanceAccounts .account.account-bni .name,#balanceAccounts .account.account-order-kuota .name,#balanceAccounts .account.account-seabank .name,#balanceAccounts .account.account-dana .name,#balanceAccounts .account.account-uang-cash .name,#balanceAccounts .account.account-bni .amount,#balanceAccounts .account.account-order-kuota .amount,#balanceAccounts .account.account-seabank .amount,#balanceAccounts .account.account-dana .amount,#balanceAccounts .account.account-uang-cash .amount{color:#19375f;text-shadow:none}
+#balanceAccounts .account.account-bni small,#balanceAccounts .account.account-order-kuota small,#balanceAccounts .account.account-seabank small,#balanceAccounts .account.account-dana small,#balanceAccounts .account.account-uang-cash small,#balanceAccounts .account.account-bni .contactless,#balanceAccounts .account.account-order-kuota .contactless,#balanceAccounts .account.account-seabank .contactless,#balanceAccounts .account.account-dana .contactless,#balanceAccounts .account.account-uang-cash .contactless{color:#718096}
 #balanceAccounts .account.account-bri .name,#balanceAccounts .account.account-mandiri .name,
 #balanceAccounts .account.account-bri .amount,#balanceAccounts .account.account-mandiri .amount{color:#fff}
 /* Modal input saldo awal */
