@@ -461,21 +461,21 @@ p,.muted,small{letter-spacing:-.012em}
 }
 
 
-/* Soft Blue Glass page background — calm, readable dashboard surface */
+/* Soft Blue Glass page background — use uploaded WebP artwork */
 body{
-  background:
-    radial-gradient(ellipse at 78% 8%,rgba(190,222,255,.52) 0,rgba(190,222,255,0) 34%),
-    radial-gradient(ellipse at 12% 88%,rgba(208,231,255,.55) 0,rgba(208,231,255,0) 32%),
-    linear-gradient(145deg,#f8fbff 0%,#eef5ff 48%,#f7faff 100%);
+  background-color:#f5f9ff;
+  background-image:
+    linear-gradient(rgba(248,251,255,.22),rgba(248,251,255,.22)),
+    url('./bg-halaman.webp');
+  background-size:cover;
+  background-position:center top;
+  background-repeat:no-repeat;
   background-attachment:fixed;
 }
 .main{
   position:relative;
   isolation:isolate;
-  background:
-    radial-gradient(ellipse at 76% 4%,rgba(183,218,255,.34),transparent 36%),
-    radial-gradient(ellipse at 8% 94%,rgba(206,229,255,.38),transparent 34%),
-    linear-gradient(160deg,rgba(247,251,255,.78),rgba(237,245,255,.58) 52%,rgba(250,252,255,.78));
+  background:linear-gradient(160deg,rgba(247,251,255,.22),rgba(237,245,255,.16) 52%,rgba(250,252,255,.22));
 }
 .main:before{
   content:"";
@@ -504,7 +504,8 @@ body{
   backdrop-filter:blur(16px);
 }
 @media(max-width:760px){
-  .main{background:linear-gradient(160deg,#f5f9ff,#eef5ff 58%,#f9fbff)}
+  body{background-attachment:scroll;background-position:center top}
+  .main{background:linear-gradient(160deg,rgba(247,251,255,.28),rgba(237,245,255,.22) 58%,rgba(249,251,255,.28))}
   .main:before{height:220px;top:64px}
   .panel{-webkit-backdrop-filter:blur(12px);backdrop-filter:blur(12px)}
 }
