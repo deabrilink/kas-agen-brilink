@@ -127,20 +127,30 @@ button{cursor:pointer}
 }
 #balanceAccounts .account small{display:block;color:rgba(255,255,255,.88);font-size:11px;font-weight:600;margin-top:5px}
 #balanceAccounts .account .card-number{font-size:10px;font-weight:650;letter-spacing:1px;color:rgba(255,255,255,.88);margin-top:6px}
-#balanceAccounts .account.account-bri{
-  background-image:linear-gradient(100deg,rgba(0,77,170,.08),rgba(0,45,115,.04)),url('./bg-bri.webp');
-  background-size:cover;background-position:center 60%;border-color:rgba(255,255,255,.65)
+/* Background kartu rekening WebP; ukuran dan posisi nominal tetap mengikuti layout kartu */
+#balanceAccounts .account.account-bri,
+#balanceAccounts .account.account-mandiri,
+#balanceAccounts .account.account-bni,
+#balanceAccounts .account.account-order-kuota,
+#balanceAccounts .account.account-seabank,
+#balanceAccounts .account.account-dana,
+#balanceAccounts .account.account-uang-cash{
+  background-size:100% 100%;
+  background-repeat:no-repeat;
+  background-position:center;
+  border-color:rgba(255,255,255,.68);
+  box-shadow:0 6px 14px rgba(19,58,111,.10)
 }
-#balanceAccounts .account.account-mandiri{
-  background-image:linear-gradient(100deg,rgba(0,77,170,.08),rgba(0,45,115,.04)),url('./bg-bri.webp');
-  background-size:cover;background-position:center 52%;border-color:rgba(255,255,255,.65)
-}
-#balanceAccounts .account.account-bni,#balanceAccounts .account.account-order-kuota,#balanceAccounts .account.account-seabank,#balanceAccounts .account.account-dana,#balanceAccounts .account.account-uang-cash{background:#f1f5fb;border-color:#e1e8f2;box-shadow:0 5px 12px rgba(19,58,111,.07)}
-#balanceAccounts .account.account-bni:before,#balanceAccounts .account.account-bni:after,#balanceAccounts .account.account-order-kuota:before,#balanceAccounts .account.account-order-kuota:after,#balanceAccounts .account.account-seabank:before,#balanceAccounts .account.account-seabank:after,#balanceAccounts .account.account-dana:before,#balanceAccounts .account.account-dana:after,#balanceAccounts .account.account-uang-cash:before,#balanceAccounts .account.account-uang-cash:after{display:none}
-#balanceAccounts .account.account-bni .name,#balanceAccounts .account.account-order-kuota .name,#balanceAccounts .account.account-seabank .name,#balanceAccounts .account.account-dana .name,#balanceAccounts .account.account-uang-cash .name,#balanceAccounts .account.account-bni .amount,#balanceAccounts .account.account-order-kuota .amount,#balanceAccounts .account.account-seabank .amount,#balanceAccounts .account.account-dana .amount,#balanceAccounts .account.account-uang-cash .amount{color:#19375f;text-shadow:none}
-#balanceAccounts .account.account-bni small,#balanceAccounts .account.account-order-kuota small,#balanceAccounts .account.account-seabank small,#balanceAccounts .account.account-dana small,#balanceAccounts .account.account-uang-cash small,#balanceAccounts .account.account-bni .contactless,#balanceAccounts .account.account-order-kuota .contactless,#balanceAccounts .account.account-seabank .contactless,#balanceAccounts .account.account-dana .contactless,#balanceAccounts .account.account-uang-cash .contactless{color:#718096}
-#balanceAccounts .account.account-bri .name,#balanceAccounts .account.account-mandiri .name,
-#balanceAccounts .account.account-bri .amount,#balanceAccounts .account.account-mandiri .amount{color:#fff}
+#balanceAccounts .account.account-bri{background-image:url('./bg-bri.webp')}
+#balanceAccounts .account.account-mandiri{background-image:url('./bg-mandiri.webp')}
+#balanceAccounts .account.account-bni{background-image:url('./bg-bni.webp')}
+#balanceAccounts .account.account-order-kuota{background-image:url('./bg-kuota.webp')}
+#balanceAccounts .account.account-seabank{background-image:url('./bg-seabank.webp')}
+#balanceAccounts .account.account-dana{background-image:url('./bg-dana.webp')}
+#balanceAccounts .account.account-uang-cash{background-image:url('./bg-cash.webp')}
+#balanceAccounts .account .amount,
+#balanceAccounts .account small{color:#fff!important;text-shadow:0 1px 3px rgba(0,25,65,.55)!important}
+#balanceAccounts .account:before,#balanceAccounts .account:after{display:none!important}
 /* Modal input saldo awal */
 .modal-backdrop{display:none;position:fixed;inset:0;z-index:80;padding:18px;align-items:center;justify-content:center;background:rgba(8,20,40,.48);backdrop-filter:blur(7px);-webkit-backdrop-filter:blur(7px)}
 .modal-backdrop.show{display:flex}
