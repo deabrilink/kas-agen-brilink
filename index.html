@@ -679,13 +679,35 @@ body{
 }
 .sidebar .nav button{width:100%}
 
+
+/* Compact sidebar navigation rhythm */
+.sidebar .nav{gap:7px !important}
+.sidebar .nav-group{gap:2px !important}
+.sidebar .nav-group-label{
+  margin:4px 9px 2px !important;
+  font-size:8px !important;line-height:1.1 !important;
+}
+.sidebar .nav-group + .nav-group{
+  padding-top:4px !important;
+}
+.sidebar .nav button{
+  min-height:35px !important;
+  padding:4px 8px !important;
+  gap:8px !important;
+  border-radius:9px !important;
+  font-size:11.5px !important;
+}
+.sidebar .nav .ico{
+  width:27px !important;height:27px !important;flex-basis:27px !important;
+  border-radius:8px !important;font-size:14px !important;
+}
+
 </style>
 </head>
 <body>
 <div class="app">
   <aside class="sidebar" id="sidebar">
     <div class="brand brand-profile"><img class="brand-photo" src="./a1profil.webp" alt="Foto Dea Fadillah Lubis"><div class="brand-identity"><strong>Dea Fadillah Lubis</strong><small><i class="brand-online-dot"></i> Agen BRILink</small></div></div>
-    <div class="nav-label">MENU UTAMA</div>
     <nav class="nav" id="navigation">
       <div class="nav-group">
         <div class="nav-group-label">OVERVIEW</div>
