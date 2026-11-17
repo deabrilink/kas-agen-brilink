@@ -868,6 +868,43 @@ body{
 #page-titipan .deposit-layout > .panel{width:100%;min-width:0}
 #page-titipan .deposit-layout .table-wrap{width:100%;overflow-x:auto}
 
+
+/* Consistent vertical layout for every menu containing history/data tables */
+#page-transaksi .grid.two-col,
+#page-titipan .grid.two-col,
+#page-hutang .grid.two-col,
+#page-operasional .grid.two-col,
+#page-pindah .grid.two-col,
+#page-fee .grid.two-col,
+#page-warung .grid.two-col{
+  display:flex !important;
+  flex-direction:column !important;
+  align-items:stretch !important;
+  gap:16px !important;
+}
+#page-transaksi .grid.two-col > .panel,
+#page-titipan .grid.two-col > .panel,
+#page-hutang .grid.two-col > .panel,
+#page-operasional .grid.two-col > .panel,
+#page-pindah .grid.two-col > .panel,
+#page-fee .grid.two-col > .panel,
+#page-warung .grid.two-col > .panel{
+  width:100% !important;
+  max-width:none !important;
+  min-width:0 !important;
+}
+#page-transaksi .table-wrap,
+#page-titipan .table-wrap,
+#page-hutang .table-wrap,
+#page-operasional .table-wrap,
+#page-pindah .table-wrap,
+#page-fee .table-wrap,
+#page-warung .table-wrap{
+  width:100%;
+  max-width:100%;
+  overflow-x:auto;
+}
+
 </style>
 </head>
 <body>
