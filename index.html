@@ -857,6 +857,19 @@ body{
   .account .amount{font-size:14px !important}
 }
 
+
+/* Consistent cash-flow indicators across all transaction history tables */
+.flow-indicator{
+ display:inline-flex;align-items:center;gap:5px;white-space:nowrap;
+ padding:4px 8px;border-radius:999px;font-size:10px;font-weight:750;
+ line-height:1.15;border:1px solid transparent;vertical-align:middle;
+}
+.flow-indicator i{font-style:normal;font-size:12px;font-weight:900;line-height:1}
+.flow-indicator.flow-in{color:#087A50;background:#E7F8EF;border-color:#BCE9CF}
+.flow-indicator.flow-out{color:#B42332;background:#FFF0F0;border-color:#F5C7CC}
+#transferTable .flow-indicator{margin:2px 3px 2px 0}
+@media(max-width:760px){.flow-indicator{font-size:9px;padding:3px 6px}}
+
 </style>
 </head>
 <body>
@@ -976,7 +989,7 @@ body{
               <div class="form-actions"><button type="reset" class="btn btn-light">Reset</button><button class="btn btn-primary">Simpan Transaksi</button></div>
             </form>
           </div>
-          <div class="panel"><h3>Riwayat Transaksi Agen</h3><div class="toolbar"><input id="trxFilter" placeholder="Cari layanan..." oninput="renderTables()"><select id="trxTypeFilter" onchange="renderTables()"><option value="">Semua layanan</option><option>Setor Tunai</option><option>Tarik Tunai</option><option>PKH</option><option>BPNT</option></select></div><div class="table-wrap"><table><thead><tr><th>Tanggal</th><th>Layanan</th><th>Rekening</th><th>Nominal</th><th>Fee Agen</th></tr></thead><tbody id="trxTable"></tbody></table></div></div>
+          <div class="panel"><h3>Riwayat Transaksi Agen</h3><div class="toolbar"><input id="trxFilter" placeholder="Cari layanan..." oninput="renderTables()"><select id="trxTypeFilter" onchange="renderTables()"><option value="">Semua layanan</option><option>Setor Tunai</option><option>Tarik Tunai</option><option>PKH</option><option>BPNT</option></select></div><div class="table-wrap"><table><thead><tr><th>Tanggal</th><th>Layanan</th><th>Rekening</th><th>Arus</th><th>Nominal</th><th>Fee Agen</th></tr></thead><tbody id="trxTable"></tbody></table></div></div>
         </div>
       </section>
       <!-- SALDO -->
@@ -985,7 +998,7 @@ body{
         <div class="grid stats saldo-stats"><div class="stat kpi-card kpi-primary"><div class="label">Total Saldo Tersedia</div><div class="value balance-value-row"><span id="balanceTotalValue">Rp 0</span><button class="balance-visibility-btn" id="toggleBalanceVisibility" type="button" onclick="toggleBalanceVisibility()" aria-label="Sembunyikan saldo" title="Sembunyikan saldo" aria-pressed="false"><svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M2 12s3.6-7 10-7 10 7 10 7-3.6 7-10 7S2 12 2 12Z"/><circle cx="12" cy="12" r="3"/></svg></button></div><small>Seluruh rekening dan kas</small></div><div class="stat kpi-card kpi-purple"><div class="label">Total Piutang</div><div class="value" id="balanceDebt">Rp 0</div><small>Hutang pelanggan</small></div><div class="stat kpi-card kpi-green"><div class="label">Jumlah Rekening</div><div class="value">7</div><small>Termasuk uang cash</small></div><div class="stat kpi-card kpi-orange"><div class="label">Mutasi Tercatat</div><div class="value" id="balanceMutations">0</div><small>Seluruh aktivitas saldo</small></div></div>
         <div class="panel"><h3>Daftar Saldo</h3><div class="grid account-grid" id="balanceAccounts"></div></div>
         <div class="grid two-col section-gap"><div class="panel"><h3>⚠ Peringatan Saldo Minimum</h3><p class="muted">Atur batas saldo aman untuk setiap rekening. Peringatan muncul otomatis saat saldo di bawah batas.</p><div class="table-wrap"><table><thead><tr><th>Rekening</th><th>Saldo Saat Ini</th><th>Batas Minimum</th><th>Status</th></tr></thead><tbody id="minimumBalanceTable"></tbody></table></div></div><div class="panel"><h3>Rekonsiliasi Saldo Rekening</h3><p class="muted">Masukkan saldo aktual dari aplikasi bank atau hitung uang tunai, lalu bandingkan dengan saldo pembukuan.</p><div class="table-wrap"><table><thead><tr><th>Rekening</th><th>Saldo Sistem</th><th>Saldo Aktual</th><th>Selisih</th></tr></thead><tbody id="reconciliationTable"></tbody></table></div><div class="notice section-gap" id="reconciliationStatus">Isi saldo aktual untuk memulai rekonsiliasi.</div></div></div>
-        <div class="panel section-gap"><h3>Mutasi Saldo Terbaru</h3><div class="table-wrap"><table><thead><tr><th>Tanggal</th><th>Rekening</th><th>Sumber</th><th>Jenis</th><th>Nominal</th></tr></thead><tbody id="ledgerTable"></tbody></table></div></div>
+        <div class="panel section-gap"><h3>Mutasi Saldo Terbaru</h3><div class="table-wrap"><table><thead><tr><th>Tanggal</th><th>Rekening</th><th>Sumber</th><th>Arus</th><th>Nominal</th></tr></thead><tbody id="ledgerTable"></tbody></table></div></div>
         <div class="modal-backdrop" id="openingModal" role="dialog" aria-modal="true" aria-labelledby="openingModalTitle" onclick="if(event.target===this)closeOpeningModal()">
           <div class="modal-card">
             <div class="modal-head"><div><h2 id="openingModalTitle">Input Saldo Awal Pertama</h2><p>Masukkan saldo yang tersedia pada setiap rekening saat mulai menggunakan aplikasi.</p></div><button class="modal-close" type="button" aria-label="Tutup" onclick="closeOpeningModal()">×</button></div>
@@ -1018,7 +1031,7 @@ body{
           </div>
           <div class="panel"><h3>Saldo Titipan per Pelanggan</h3><div class="table-wrap"><table><thead><tr><th>Nama Penitip</th><th>Total Masuk</th><th>Dikembalikan</th><th>Sisa Titipan</th></tr></thead><tbody id="depositCustomerTable"></tbody></table></div></div>
         </div>
-        <div class="panel section-gap"><h3>Riwayat Saldo Titipan</h3><div class="table-wrap"><table><thead><tr><th>Tanggal</th><th>Nama Penitip</th><th>Jenis</th><th>Rekening / Kas</th><th>Nominal</th><th>Keterangan</th></tr></thead><tbody id="depositTable"></tbody></table></div></div>
+        <div class="panel section-gap"><h3>Riwayat Saldo Titipan</h3><div class="table-wrap"><table><thead><tr><th>Tanggal</th><th>Nama Penitip</th><th>Jenis</th><th>Rekening / Kas</th><th>Arus</th><th>Nominal</th><th>Keterangan</th></tr></thead><tbody id="depositTable"></tbody></table></div></div>
       </section>
       <!-- HUTANG -->
       <section class="page" id="page-hutang">
@@ -1056,7 +1069,7 @@ body{
           <div class="field full"><label>Nominal (Rp)</label><input type="text" inputmode="numeric" autocomplete="off" class="money-input" id="opsAmount" required></div>
           <div class="field full"><label>Keterangan</label><textarea id="opsNote" placeholder="Keterangan operasional"></textarea></div>
         </div><div class="form-actions"><button class="btn btn-primary">Simpan Operasional</button></div></form></div>
-        <div class="panel"><h3>Riwayat Operasional</h3><div class="table-wrap"><table><thead><tr><th>Tanggal</th><th>Jenis</th><th>Kategori</th><th>Nominal</th></tr></thead><tbody id="opsTable"></tbody></table></div></div></div>
+        <div class="panel"><h3>Riwayat Operasional</h3><div class="table-wrap"><table><thead><tr><th>Tanggal</th><th>Jenis</th><th>Kategori</th><th>Arus</th><th>Nominal</th></tr></thead><tbody id="opsTable"></tbody></table></div></div></div>
       </section>
       <!-- PINDAH SALDO -->
       <section class="page" id="page-pindah">
@@ -1069,7 +1082,7 @@ body{
           <div class="field"><label>Biaya Admin (Rp)</label><input type="text" inputmode="numeric" autocomplete="off" class="money-input" id="transferFee" value="0"></div>
           <div class="field full"><label>Keterangan</label><textarea id="transferNote" placeholder="Catatan transfer"></textarea></div>
         </div><div class="notice section-gap">Saldo asal akan berkurang sebesar nominal transfer ditambah biaya admin. Saldo tujuan bertambah sebesar nominal transfer.</div><div class="form-actions"><button class="btn btn-primary">Pindah Saldo</button></div></form></div>
-        <div class="panel"><h3>Riwayat Pindah Saldo</h3><div class="table-wrap"><table><thead><tr><th>Tanggal</th><th>Dari</th><th>Ke</th><th>Nominal</th><th>Admin</th></tr></thead><tbody id="transferTable"></tbody></table></div></div></div>
+        <div class="panel"><h3>Riwayat Pindah Saldo</h3><div class="table-wrap"><table><thead><tr><th>Tanggal</th><th>Dari</th><th>Ke</th><th>Arus Dana</th><th>Nominal</th><th>Admin</th></tr></thead><tbody id="transferTable"></tbody></table></div></div></div>
       </section>
       <!-- FEE -->
       <section class="page" id="page-fee">
@@ -1081,7 +1094,7 @@ body{
           <div class="field"><label>Fee Masuk Ke</label><select id="feeAccount" class="account-options"></select></div>
           <div class="field full"><label>Keterangan</label><textarea id="feeNote"></textarea></div>
         </div><div class="form-actions"><button class="btn btn-primary">Simpan Fee</button></div></form></div>
-        <div class="panel"><h3>Riwayat Fee & Komisi</h3><div class="table-wrap"><table><thead><tr><th>Tanggal</th><th>Jenis</th><th>Masuk Ke</th><th>Jumlah</th></tr></thead><tbody id="feeTable"></tbody></table></div></div></div>
+        <div class="panel"><h3>Riwayat Fee & Komisi</h3><div class="table-wrap"><table><thead><tr><th>Tanggal</th><th>Jenis</th><th>Masuk Ke</th><th>Arus</th><th>Jumlah</th></tr></thead><tbody id="feeTable"></tbody></table></div></div></div>
       </section>
       <!-- WARUNG -->
       <section class="page" id="page-warung">
@@ -1094,7 +1107,7 @@ body{
           <div class="field"><label>Uang Diterima Ke</label><select id="salesAccount" class="account-options"></select></div>
           <div class="field full"><label>Keterangan</label><textarea id="salesNote" placeholder="Catatan penjualan (opsional)"></textarea></div>
         </div><div class="form-actions"><button class="btn btn-primary">Simpan Penjualan</button></div></form></div>
-        <div class="panel"><h3>Riwayat Transaksi Warung</h3><div class="table-wrap"><table><thead><tr><th>Tanggal</th><th>Penjualan</th><th>Nominal</th><th>Rekening</th></tr></thead><tbody id="salesTable"></tbody></table></div></div></div>
+        <div class="panel"><h3>Riwayat Transaksi Warung</h3><div class="table-wrap"><table><thead><tr><th>Tanggal</th><th>Penjualan</th><th>Arus</th><th>Nominal</th><th>Rekening</th></tr></thead><tbody id="salesTable"></tbody></table></div></div></div>
       </section>
       <!-- RIWAYAT -->
       <section class="page" id="page-riwayat">
@@ -1187,15 +1200,20 @@ function allDebtTotals(){let total=0,paid=0;debts.forEach(d=>{total+=d.amount;pa
 function renderAccounts(target){
  document.getElementById(target).innerHTML=ACCOUNTS.map(a=>{const key=({'BRI':'bri','MANDIRI':'mandiri','BNI':'bni','ORDER KUOTA':'order-kuota','SEABANK':'seabank','DANA':'dana','UANG CASH':'uang-cash'}[a]||'');return `<div class="account ${key?'account-'+key:''}"><div class="name">${a}</div><div class="card-middle"><div class="amount-block"><div class="amount">${money(balance(a))}</div><small>Saldo tersedia</small></div></div></div>`}).join('');
 }
+
+function flowIndicator(direction,label){
+ const incoming=direction==='in';
+ return '<span class="flow-indicator '+(incoming?'flow-in':'flow-out')+'"><i>'+(incoming?'↑':'↓')+'</i>'+(label||(incoming?'Uang Masuk':'Uang Keluar'))+'</span>';
+}
 function renderTables(){
  const q=(document.getElementById('trxFilter')?.value||'').toLowerCase(),type=document.getElementById('trxTypeFilter')?.value||'';
  const rows=transactions.filter(t=>t.service.toLowerCase().includes(q)&&(!type||t.service===type)).slice().reverse();
- document.getElementById('trxTable').innerHTML=rows.map(t=>`<tr><td>${dateText(t.date)}</td><td>${t.service}</td><td>${t.account}</td><td>${money(t.amount)}</td><td>${money(t.agentFee)}</td></tr>`).join('')||'<tr><td colspan="5" class="empty">Belum ada transaksi.</td></tr>';
- document.getElementById('ledgerTable').innerHTML=ledger.slice().reverse().slice(0,30).map(x=>`<tr><td>${dateText(x.date)}</td><td>${x.account}</td><td>${x.source}</td><td>${x.type}</td><td class="${x.amount>=0?'positive':'negative'}">${money(x.amount)}</td></tr>`).join('')||'<tr><td colspan="5" class="empty">Belum ada mutasi.</td></tr>';
- document.getElementById('opsTable').innerHTML=operations.slice().reverse().map(o=>`<tr><td>${dateText(o.date)}</td><td><span class="pill ${o.type==='out'?'red':''}">${o.type==='in'?'Uang Masuk':'Uang Keluar'}</span></td><td>${o.category}</td><td>${money(o.amount)}</td></tr>`).join('')||'<tr><td colspan="4" class="empty">Belum ada catatan.</td></tr>';
- document.getElementById('transferTable').innerHTML=transfers.slice().reverse().map(t=>`<tr><td>${dateText(t.date)}</td><td>${t.from}</td><td>${t.to}</td><td>${money(t.amount)}</td><td>${money(t.fee)}</td></tr>`).join('')||'<tr><td colspan="5" class="empty">Belum ada transfer.</td></tr>';
- document.getElementById('feeTable').innerHTML=fees.slice().reverse().map(f=>`<tr><td>${dateText(f.date)}</td><td>${f.type}</td><td>${f.account}</td><td>${money(f.amount)}</td></tr>`).join('')||'<tr><td colspan="4" class="empty">Belum ada fee.</td></tr>';
- document.getElementById('salesTable').innerHTML=sales.slice().reverse().map(s=>`<tr><td>${dateText(s.date)}</td><td>${s.type}</td><td>${money(s.amount)}</td><td>${s.account}</td></tr>`).join('')||'<tr><td colspan="4" class="empty">Belum ada penjualan.</td></tr>';
+ document.getElementById('trxTable').innerHTML=rows.map(t=>`<tr><td>${dateText(t.date)}</td><td>${t.service}</td><td>${t.account}</td><td>${flowIndicator(['Tarik Tunai','PKH','BPNT'].includes(t.service)?'out':'in')}</td><td>${money(t.amount)}</td><td>${money(t.agentFee)}</td></tr>`).join('')||'<tr><td colspan="6" class="empty">Belum ada transaksi.</td></tr>';
+ document.getElementById('ledgerTable').innerHTML=ledger.slice().reverse().slice(0,30).map(x=>`<tr><td>${dateText(x.date)}</td><td>${x.account}</td><td>${x.source}</td><td>${flowIndicator(x.amount>=0?'in':'out')}</td><td class="${x.amount>=0?'positive':'negative'}">${money(Math.abs(x.amount))}</td></tr>`).join('')||'<tr><td colspan="5" class="empty">Belum ada mutasi.</td></tr>';
+ document.getElementById('opsTable').innerHTML=operations.slice().reverse().map(o=>`<tr><td>${dateText(o.date)}</td><td><span class="pill ${o.type==='out'?'red':''}">${o.type==='in'?'Uang Masuk':'Uang Keluar'}</span></td><td>${o.category}</td><td>${flowIndicator(o.type==='in'?'in':'out')}</td><td>${money(o.amount)}</td></tr>`).join('')||'<tr><td colspan="4" class="empty">Belum ada catatan.</td></tr>';
+ document.getElementById('transferTable').innerHTML=transfers.slice().reverse().map(t=>`<tr><td>${dateText(t.date)}</td><td>${t.from}</td><td>${t.to}</td><td>${flowIndicator('out','Keluar dari '+t.from)} ${flowIndicator('in','Masuk ke '+t.to)}</td><td>${money(t.amount)}</td><td>${money(t.fee)}</td></tr>`).join('')||'<tr><td colspan="5" class="empty">Belum ada transfer.</td></tr>';
+ document.getElementById('feeTable').innerHTML=fees.slice().reverse().map(f=>`<tr><td>${dateText(f.date)}</td><td>${f.type}</td><td>${f.account}</td><td>${flowIndicator('in')}</td><td>${money(f.amount)}</td></tr>`).join('')||'<tr><td colspan="4" class="empty">Belum ada fee.</td></tr>';
+ document.getElementById('salesTable').innerHTML=sales.slice().reverse().map(s=>`<tr><td>${dateText(s.date)}</td><td>${s.type}</td><td>${flowIndicator('in')}</td><td>${money(s.amount)}</td><td>${s.account}</td></tr>`).join('')||'<tr><td colspan="4" class="empty">Belum ada penjualan.</td></tr>';
 }
 function renderDebts(){
  const totals=allDebtTotals(),customers=[...new Set(debts.map(d=>d.name))];
@@ -1205,7 +1223,7 @@ function renderDebts(){
  const paySelect=document.getElementById('payDebtId');paySelect.innerHTML='<option value="">Pilih tagihan</option>'+debts.filter(d=>d.amount-payments.filter(p=>p.debtId===d.id).reduce((s,p)=>s+p.amount,0)>0).map(d=>`<option value="${d.id}">${d.name} — ${money(d.amount-payments.filter(p=>p.debtId===d.id).reduce((s,p)=>s+p.amount,0))} tersisa</option>`).join('');
  const detail=selectedCustomer?debts.filter(d=>d.name===selectedCustomer):[];
  document.getElementById('debtDetailLabel').textContent=selectedCustomer?'Rincian hutang: '+selectedCustomer:'Pilih pelanggan pada tabel di atas untuk melihat rincian.';
- document.getElementById('debtDetailTable').innerHTML=detail.map(d=>{const p=payments.filter(x=>x.debtId===d.id).reduce((s,x)=>s+x.amount,0),r=d.amount-p;return `<tr><td>${dateText(d.date)}</td><td>${d.name}</td><td>${d.account}</td><td>${d.service}</td><td>${money(d.amount)}</td><td>${money(p)}</td><td>${money(r)}</td><td>${d.dueDate||'—'}</td><td><span class="pill ${r===0?'':(d.dueDate&&d.dueDate<dateKeyLocal())?'red':'warn'}">${r===0?'Lunas':(d.dueDate&&d.dueDate<dateKeyLocal())?'Terlambat':p>0?'Cicilan':'Belum Lunas'}</span></td></tr>`}).join('')||'<tr><td colspan="9" class="empty">Belum ada rincian untuk ditampilkan.</td></tr>';
+ document.getElementById('debtDetailTable').innerHTML=detail.map(d=>{const p=payments.filter(x=>x.debtId===d.id).reduce((s,x)=>s+x.amount,0),r=d.amount-p;return `<tr><td>${dateText(d.date)}</td><td>${d.name}</td><td>${d.account}</td><td>${d.service}</td><td>${money(d.amount)}</td><td>${flowIndicator('out','Piutang')}</td><td>${money(p)}</td><td>${flowIndicator(r>0?'out':'in',r>0?'Belum diterima':'Lunas')}</td><td>${money(r)}</td><td>${d.dueDate||'—'}</td><td><span class="pill ${r===0?'':(d.dueDate&&d.dueDate<dateKeyLocal())?'red':'warn'}">${r===0?'Lunas':(d.dueDate&&d.dueDate<dateKeyLocal())?'Terlambat':p>0?'Cicilan':'Belum Lunas'}</span></td></tr>`}).join('')||'<tr><td colspan="9" class="empty">Belum ada rincian untuk ditampilkan.</td></tr>';
  const reminders=debts.map(d=>{const paid=payments.filter(x=>x.debtId===d.id).reduce((a,x)=>a+x.amount,0);return {...d,remaining:d.amount-paid}}).filter(d=>d.remaining>0).sort((a,b)=>(a.dueDate||'9999').localeCompare(b.dueDate||'9999'));
  document.getElementById('debtReminderList').innerHTML=reminders.length?reminders.map(d=>`<div style="display:flex;justify-content:space-between;gap:12px;padding:10px 0;border-bottom:1px solid #edf0f5;font-size:11px"><span><b>${d.name}</b><br><small class="muted">${d.dueDate?'Pengingat: '+d.dueDate:'Belum ada tanggal pengingat'} · ${d.account}</small></span><b class="${d.dueDate&&d.dueDate<dateKeyLocal()?'negative':'positive'}">${money(d.remaining)}</b></div>`).join(''):'<div class="empty">Tidak ada hutang yang perlu diingatkan.</div>';
 }
@@ -1446,7 +1464,7 @@ function renderDeposits(){
  document.getElementById('depositTable').innerHTML=deposits.slice().reverse().map(d=>{
    const label=d.type==='opening'?'Titipan Awal':d.type==='in'?'Titipan Masuk':'Pengembalian Titipan';
    const cls=d.type==='out'?'negative':'positive';
-   return `<tr><td>${dateText(d.date)}</td><td>${d.name}</td><td>${label}</td><td>${d.account||'—'}</td><td class="${cls}">${d.type==='out'?'-':''}${money(d.amount)}</td><td>${d.note||'—'}</td></tr>`;
+   return `<tr><td>${dateText(d.date)}</td><td>${d.name}</td><td>${label}</td><td>${d.account||'—'}</td><td>${flowIndicator(d.type==='out'?'out':'in')}</td><td class="${cls}">${d.type==='out'?'-':''}${money(d.amount)}</td><td>${d.note||'—'}</td></tr>`;
  }).join('')||'<tr><td colspan="6" class="empty">Belum ada catatan titipan.</td></tr>';
 }
 
