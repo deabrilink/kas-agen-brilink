@@ -934,7 +934,6 @@ body{
       <!-- FEE -->
       <section class="page" id="page-fee">
         <div class="page-title"><div><h1>Fee & Komisi</h1><p>Catat pendapatan fee bank dan komisi ke rekening tujuan.</p></div></div>
-        <div class="grid stats"><div class="stat"><div class="label">Total Fee Tercatat</div><div class="value" id="feeTotal">Rp 0</div><small>Akumulasi fee</small></div><div class="stat"><div class="label">Jumlah Catatan</div><div class="value" id="feeCount">0</div><small>Catatan fee</small></div><div class="stat"><div class="label">Fee Bank</div><div class="value" id="feeBankTotal">Rp 0</div><small>Jenis fee bank</small></div><div class="stat"><div class="label">Fee Agen</div><div class="value" id="feeAgentTotal">Rp 0</div><small>Jenis fee agen</small></div></div>
         <div class="grid two-col"><div class="panel"><h3>Catat Fee / Komisi</h3><form id="feeForm"><div class="form-grid">
           <div class="field"><label>Tanggal</label><input type="datetime-local" id="feeDate" required></div>
           <div class="field"><label>Jenis Fee</label><select id="feeType"><option>Fee Bank</option><option>Fee Agen</option><option>Komisi Lainnya</option></select></div>
@@ -1338,7 +1337,6 @@ function refresh(){
  document.getElementById('trxCount').textContent=transactions.length;document.getElementById('trxNominal').textContent=money(transactions.reduce((s,t)=>s+t.amount,0));document.getElementById('trxBankFee').textContent=money(transactions.reduce((s,t)=>s+t.bankFee,0));document.getElementById('trxAgentFee').textContent=money(transactions.reduce((s,t)=>s+t.agentFee,0));
  const ins=operations.filter(x=>x.type==='in').reduce((s,x)=>s+x.amount,0),outs=operations.filter(x=>x.type==='out').reduce((s,x)=>s+x.amount,0);
  document.getElementById('opsIn').textContent=money(ins);document.getElementById('opsOut').textContent=money(outs);document.getElementById('opsNet').textContent=money(ins-outs);document.getElementById('opsCount').textContent=operations.length;
- document.getElementById('feeTotal').textContent=money(fees.reduce((s,x)=>s+x.amount,0));document.getElementById('feeCount').textContent=fees.length;document.getElementById('feeBankTotal').textContent=money(fees.filter(x=>x.type==='Fee Bank').reduce((s,x)=>s+x.amount,0));document.getElementById('feeAgentTotal').textContent=money(fees.filter(x=>x.type==='Fee Agen').reduce((s,x)=>s+x.amount,0));
  const sumType=t=>sales.filter(x=>x.type===t).reduce((s,x)=>s+x.amount,0);
  document.getElementById('salesTotal').textContent=money(sales.reduce((s,x)=>s+x.amount,0));document.getElementById('salesIce').textContent=money(sumType('Es Cream'));document.getElementById('salesShop').textContent=money(sumType('Kedai'));document.getElementById('salesCig').textContent=money(sumType('Rokok'));
  const totalIn=ledger.filter(x=>x.amount>0).reduce((s,x)=>s+x.amount,0),totalOut=-ledger.filter(x=>x.amount<0).reduce((s,x)=>s+x.amount,0);
