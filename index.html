@@ -828,6 +828,20 @@ body{
   .page .grid.stats .stat small{font-size:8px !important;min-height:10px;line-height:10px !important}
 }
 
+
+/* Dashboard summary cards: no decorative glyphs; align all text on one grid */
+#page-dashboard .grid.stats .stat .sicon{display:none !important}
+#page-dashboard .grid.stats .stat{
+  display:flex !important;flex-direction:column !important;
+  align-items:flex-start !important;justify-content:center !important;
+  padding:11px 15px !important;
+}
+#page-dashboard .grid.stats .stat .label,
+#page-dashboard .grid.stats .stat .value,
+#page-dashboard .grid.stats .stat small{
+  position:relative;z-index:1;width:100%;text-align:left !important;
+}
+
 </style>
 </head>
 <body>
@@ -877,10 +891,10 @@ body{
       <section class="page active" id="page-dashboard">
         <div class="page-title"><div><h1>Dashboard</h1><p>Ringkasan kondisi keuangan dan penutupan kas harian agen.</p></div></div>
         <div class="grid stats">
-          <div class="stat"><span class="sicon">▣</span><div class="label">Total Saldo Tersedia</div><div class="value" id="dashTotal">Rp 0</div><small>Seluruh rekening dan uang cash</small></div>
-          <div class="stat"><span class="sicon">↗</span><div class="label">Total Pemasukan Hari Ini</div><div class="value" id="dashIncome">Rp 0</div><small>Mutasi masuk hari ini</small></div>
-          <div class="stat"><span class="sicon">↘</span><div class="label">Total Pengeluaran Hari Ini</div><div class="value" id="dashExpense">Rp 0</div><small>Mutasi keluar hari ini</small></div>
-          <div class="stat"><span class="sicon">⇄</span><div class="label">Jumlah Transaksi Hari Ini</div><div class="value" id="dashCount">0</div><small>Transaksi tercatat</small></div>
+          <div class="stat"><div class="label">Total Saldo Tersedia</div><div class="value" id="dashTotal">Rp 0</div><small>Seluruh rekening dan uang cash</small></div>
+          <div class="stat"><div class="label">Total Pemasukan Hari Ini</div><div class="value" id="dashIncome">Rp 0</div><small>Mutasi masuk hari ini</small></div>
+          <div class="stat"><div class="label">Total Pengeluaran Hari Ini</div><div class="value" id="dashExpense">Rp 0</div><small>Mutasi keluar hari ini</small></div>
+          <div class="stat"><div class="label">Jumlah Transaksi Hari Ini</div><div class="value" id="dashCount">0</div><small>Transaksi tercatat</small></div>
         </div>
         <div class="section-gap session-heading"><div><h3 style="margin:0 0 6px">Sesi Akhir · Tutup Kas Harian</h3><p class="muted" style="margin:0 0 16px">Saldo rekening, dana titipan, kas milik agen, dan selisih rekonsiliasi dihitung otomatis setiap hari.</p></div><button class="btn btn-primary" type="button" onclick="toggleNextDaySimulation()">◷ Simulasikan Hari Berikutnya</button></div>
         <div class="panel" id="nextDaySimulation" style="display:none">
