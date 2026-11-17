@@ -561,6 +561,41 @@ body{
   .sidebar{box-shadow:14px 0 36px rgba(13,8,25,.3) !important}
 }
 
+
+/* Profile card — Dea Fadillah Lubis */
+.sidebar-profile{
+  position:relative;isolation:isolate;overflow:hidden;
+  margin-top:auto;padding:0 12px 13px;border-radius:17px;
+  background:linear-gradient(145deg,rgba(107,70,170,.24),rgba(42,31,65,.72));
+  border:1px solid rgba(210,190,255,.17);
+  box-shadow:0 10px 24px rgba(7,5,17,.18),inset 0 1px 0 rgba(255,255,255,.07);
+}
+.sidebar-profile:before{
+  content:"";position:absolute;z-index:-1;width:150px;height:150px;right:-72px;top:-88px;
+  border-radius:50%;background:rgba(164,112,255,.18);filter:blur(3px);
+}
+.profile-cover{
+  height:5px;margin:0 -12px 13px;
+  background:linear-gradient(90deg,#f4d27a 0%,#a879f5 45%,#6c4bc0 100%);
+}
+.profile-content{display:flex;align-items:center;gap:10px;min-width:0}
+.profile-photo{
+  width:46px;height:46px;flex:0 0 46px;object-fit:cover;object-position:center;
+  border-radius:14px;border:2px solid rgba(255,255,255,.82);
+  box-shadow:0 4px 13px rgba(0,0,0,.26),0 0 0 3px rgba(167,139,250,.22);
+  background:#35264d;
+}
+.profile-info{display:flex;flex-direction:column;gap:5px;min-width:0}
+.profile-info strong{color:#fff;font-size:11px;font-weight:800;line-height:1.35;overflow-wrap:anywhere}
+.profile-info span{display:flex;align-items:center;gap:6px;color:#c4b4df;font-size:9px;font-weight:650}
+.profile-status-dot{width:6px;height:6px;border-radius:50%;background:#62dfa3;box-shadow:0 0 8px rgba(98,223,163,.7)}
+.profile-more{margin-left:auto;align-self:flex-start;color:#f2d27c;font-size:15px}
+.profile-caption{
+  margin:10px 0 0 56px;padding-top:8px;border-top:1px solid rgba(226,217,255,.12);
+  color:#9888b2;font-size:9px;letter-spacing:.55px;text-transform:uppercase;font-weight:750;
+}
+@media(max-width:760px){.sidebar-profile{margin-top:24px}}
+
 </style>
 </head>
 <body>
@@ -582,6 +617,18 @@ body{
       <button data-page="laporan"><span class="ico">▥</span>Laporan</button>
       <button data-page="pengaturan"><span class="ico">⚙</span>Pengaturan</button>
     </nav>
+    <div class="sidebar-profile" aria-label="Profil Agen BRILink">
+      <div class="profile-cover"></div>
+      <div class="profile-content">
+        <img class="profile-photo" src="./a1profil.webp" alt="Foto Dea Fadillah Lubis">
+        <div class="profile-info">
+          <strong>Dea Fadillah Lubis</strong>
+          <span><i class="profile-status-dot"></i> Agen BRILink</span>
+        </div>
+        <span class="profile-more" aria-hidden="true">✦</span>
+      </div>
+      <div class="profile-caption">Pengelola Kas Agen</div>
+    </div>
   </aside>
   <div class="mobile-overlay" id="overlay" onclick="toggleSidebar()"></div>
   <main class="main">
