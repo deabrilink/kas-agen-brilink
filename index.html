@@ -665,6 +665,20 @@ body{
   .sidebar .brand-online-dot,.sidebar .brand-online-dot:after{animation:none}
 }
 
+
+/* Sidebar navigation hierarchy */
+.sidebar .nav{display:flex;flex-direction:column;gap:12px}
+.sidebar .nav-group{display:grid;gap:4px}
+.sidebar .nav-group-label{
+  margin:7px 9px 4px;color:#8e7da9;font-size:9px;
+  font-weight:850;letter-spacing:1.35px;line-height:1.2;
+}
+.sidebar .nav-group:first-child .nav-group-label{margin-top:3px}
+.sidebar .nav-group + .nav-group{
+  padding-top:7px;border-top:1px solid rgba(226,217,255,.075)
+}
+.sidebar .nav button{width:100%}
+
 </style>
 </head>
 <body>
@@ -673,18 +687,33 @@ body{
     <div class="brand brand-profile"><img class="brand-photo" src="./a1profil.webp" alt="Foto Dea Fadillah Lubis"><div class="brand-identity"><strong>Dea Fadillah Lubis</strong><small><i class="brand-online-dot"></i> Agen BRILink</small></div></div>
     <div class="nav-label">MENU UTAMA</div>
     <nav class="nav" id="navigation">
-      <button class="active" data-page="dashboard"><span class="ico">▦</span>Dashboard</button>
-      <button data-page="saldo"><span class="ico">▣</span>Saldo & Rekening</button>
-      <button data-page="transaksi"><span class="ico">⇄</span>Transaksi Agen</button>
-      <button data-page="titipan"><span class="ico">◉</span>Saldo Titipan</button>
-      <button data-page="hutang"><span class="ico">♙</span>Hutang Pelanggan</button>
-      <button data-page="operasional"><span class="ico">▤</span>Operasional</button>
-      <button data-page="pindah"><span class="ico">⇆</span>Pindah Saldo</button>
-      <button data-page="fee"><span class="ico">◈</span>Fee & Komisi</button>
-      <button data-page="warung"><span class="ico">▧</span>Warung</button>
-      <button data-page="riwayat"><span class="ico">◷</span>Riwayat Transaksi</button>
-      <button data-page="laporan"><span class="ico">▥</span>Laporan</button>
-      <button data-page="pengaturan"><span class="ico">⚙</span>Pengaturan</button>
+      <div class="nav-group">
+        <div class="nav-group-label">OVERVIEW</div>
+        <button class="active" data-page="dashboard"><span class="ico">▦</span>Dashboard</button>
+      </div>
+      <div class="nav-group">
+        <div class="nav-group-label">KEUANGAN</div>
+        <button data-page="saldo"><span class="ico">▣</span>Saldo & Rekening</button>
+        <button data-page="transaksi"><span class="ico">⇄</span>Transaksi Agen</button>
+        <button data-page="pindah"><span class="ico">⇆</span>Pindah Saldo</button>
+        <button data-page="titipan"><span class="ico">◉</span>Saldo Titipan</button>
+        <button data-page="hutang"><span class="ico">♙</span>Hutang Pelanggan</button>
+        <button data-page="fee"><span class="ico">◈</span>Fee & Komisi</button>
+      </div>
+      <div class="nav-group">
+        <div class="nav-group-label">OPERASIONAL</div>
+        <button data-page="operasional"><span class="ico">▤</span>Operasional</button>
+        <button data-page="warung"><span class="ico">▧</span>Warung</button>
+      </div>
+      <div class="nav-group">
+        <div class="nav-group-label">ANALISIS</div>
+        <button data-page="riwayat"><span class="ico">◷</span>Riwayat Transaksi</button>
+        <button data-page="laporan"><span class="ico">▥</span>Laporan</button>
+      </div>
+      <div class="nav-group">
+        <div class="nav-group-label">PREFERENSI</div>
+        <button data-page="pengaturan"><span class="ico">⚙</span>Pengaturan</button>
+      </div>
     </nav>
   </aside>
   <div class="mobile-overlay" id="overlay" onclick="toggleSidebar()"></div>
