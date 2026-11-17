@@ -639,6 +639,32 @@ body{
 }
 .sidebar .brand.brand-profile{gap:13px;min-height:68px}
 
+
+/* Live presence indicator — gentle breathing pulse */
+.sidebar .brand-online-dot{
+  position:relative;isolation:isolate;
+  width:7px;height:7px;flex:0 0 7px;border-radius:50%;
+  background:#61e6a4;
+  box-shadow:0 0 0 0 rgba(97,230,164,.55),0 0 9px rgba(97,230,164,.8);
+  animation:agentLivePulse 1.8s ease-out infinite;
+}
+.sidebar .brand-online-dot:after{
+  content:"";position:absolute;inset:-4px;border-radius:50%;
+  border:1px solid rgba(97,230,164,.65);
+  animation:agentLiveRing 1.8s ease-out infinite;
+}
+@keyframes agentLivePulse{
+  0%,100%{box-shadow:0 0 0 0 rgba(97,230,164,.45),0 0 8px rgba(97,230,164,.65);opacity:1}
+  50%{box-shadow:0 0 0 4px rgba(97,230,164,.08),0 0 13px rgba(97,230,164,.95);opacity:.82}
+}
+@keyframes agentLiveRing{
+  0%{transform:scale(.65);opacity:.85}
+  75%,100%{transform:scale(1.55);opacity:0}
+}
+@media(prefers-reduced-motion:reduce){
+  .sidebar .brand-online-dot,.sidebar .brand-online-dot:after{animation:none}
+}
+
 </style>
 </head>
 <body>
