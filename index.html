@@ -512,6 +512,55 @@ body{
   .panel{-webkit-backdrop-filter:blur(12px);backdrop-filter:blur(12px)}
 }
 
+
+/* Sidebar refresh — midnight indigo with violet active state */
+.sidebar{
+  background:
+    radial-gradient(ellipse at 8% 0%,rgba(139,92,246,.16),transparent 38%),
+    linear-gradient(180deg,#191426 0%,#171323 52%,#120f1d 100%) !important;
+  color:#f4efff !important;
+  border-right:1px solid rgba(196,181,253,.12) !important;
+  box-shadow:8px 0 30px rgba(13,8,25,.18) !important;
+  scrollbar-color:rgba(167,139,250,.32) transparent;
+}
+.sidebar .brand{border-bottom-color:rgba(226,217,255,.13) !important}
+.sidebar .brand strong{color:#fff !important}
+.sidebar .brand small{color:#a99cbe !important}
+.sidebar .nav-label{color:#8e7da9 !important}
+.sidebar .nav button{color:#c9bfdc !important;border-color:transparent !important}
+.sidebar .nav button:hover{
+  background:rgba(167,139,250,.11) !important;
+  color:#fff !important;
+  border-color:rgba(196,181,253,.10) !important;
+}
+.sidebar .nav button.active{
+  color:#fff !important;
+  background:linear-gradient(105deg,#8b4de8 0%,#9d5cf4 55%,#7541d4 100%) !important;
+  border-color:rgba(224,203,255,.18) !important;
+  box-shadow:0 7px 18px rgba(117,65,212,.28),inset 0 1px 0 rgba(255,255,255,.16) !important;
+}
+.sidebar .nav .ico{
+  background:rgba(167,139,250,.13) !important;
+  color:#c8aaff !important;
+  border:1px solid rgba(196,181,253,.08);
+}
+.sidebar .nav button.active .ico{
+  background:rgba(255,255,255,.18) !important;
+  color:#fff !important;
+  border-color:rgba(255,255,255,.12) !important;
+}
+.sidebar .admin-chip{
+  background:rgba(255,255,255,.055) !important;
+  border-color:rgba(226,217,255,.13) !important;
+  box-shadow:inset 0 1px 0 rgba(255,255,255,.04) !important;
+  color:#f5f0ff !important;
+}
+.sidebar .admin-chip small{color:#a99cbe !important}
+.sidebar .online{color:#72e0ad !important}
+@media(max-width:760px){
+  .sidebar{box-shadow:14px 0 36px rgba(13,8,25,.3) !important}
+}
+
 </style>
 </head>
 <body>
