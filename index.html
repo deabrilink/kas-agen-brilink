@@ -717,6 +717,46 @@ body{
 }
 .sidebar .nav{flex:0 0 auto}
 
+
+/* Unified KPI summary cards: match the four pastel cards on Saldo & Rekening */
+.page .grid.stats:not(.saldo-stats) .stat{
+  min-height:112px !important;padding:15px 17px !important;border-radius:16px !important;
+  display:flex;flex-direction:column;align-items:flex-start;justify-content:center;
+  box-shadow:0 7px 20px rgba(30,55,90,.055) !important;
+  border:1px solid transparent !important;color:#123C70;
+  background:#EAF3FF;
+}
+.page .grid.stats:not(.saldo-stats) .stat:after{display:none}
+.page .grid.stats:not(.saldo-stats) .stat .label{
+  color:#64809D;font-size:10px;font-weight:700;letter-spacing:.01em;margin-top:2px
+}
+.page .grid.stats:not(.saldo-stats) .stat .value{
+  color:#123C70;font-size:21px;font-weight:850;margin:12px 0 4px;letter-spacing:-.55px
+}
+.page .grid.stats:not(.saldo-stats) .stat small{color:#64809D;font-size:9px;line-height:1.35}
+.page .grid.stats:not(.saldo-stats) .stat:nth-child(4n+2){
+  background:#F1ECFF;border-color:#E8DFFF;color:#49317F
+}
+.page .grid.stats:not(.saldo-stats) .stat:nth-child(4n+2) .label,
+.page .grid.stats:not(.saldo-stats) .stat:nth-child(4n+2) small{color:#8978A8}
+.page .grid.stats:not(.saldo-stats) .stat:nth-child(4n+2) .value{color:#49317F}
+.page .grid.stats:not(.saldo-stats) .stat:nth-child(4n+3){
+  background:#E8F8F1;border-color:#D7F1E4;color:#146344
+}
+.page .grid.stats:not(.saldo-stats) .stat:nth-child(4n+3) .label,
+.page .grid.stats:not(.saldo-stats) .stat:nth-child(4n+3) small{color:#6D9A84}
+.page .grid.stats:not(.saldo-stats) .stat:nth-child(4n+3) .value{color:#146344}
+.page .grid.stats:not(.saldo-stats) .stat:nth-child(4n){
+  background:#FFF3E6;border-color:#FCE7D1;color:#A95814
+}
+.page .grid.stats:not(.saldo-stats) .stat:nth-child(4n) .label,
+.page .grid.stats:not(.saldo-stats) .stat:nth-child(4n) small{color:#B58A65}
+.page .grid.stats:not(.saldo-stats) .stat:nth-child(4n) .value{color:#A95814}
+@media(max-width:760px){
+  .page .grid.stats:not(.saldo-stats) .stat{min-height:92px !important;padding:11px !important;border-radius:13px !important}
+  .page .grid.stats:not(.saldo-stats) .stat .value{font-size:18px}
+}
+
 </style>
 </head>
 <body>
