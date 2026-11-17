@@ -1505,7 +1505,7 @@ function refresh(){
 function updateHistory(rows){
  const ins=rows.filter(x=>x.amount>0).reduce((s,x)=>s+x.amount,0),outs=-rows.filter(x=>x.amount<0).reduce((s,x)=>s+x.amount,0);
  document.getElementById('historyCount').textContent=rows.length;document.getElementById('historyNominal').textContent=money(rows.reduce((s,x)=>s+Math.abs(x.amount),0));document.getElementById('historyIn').textContent=money(ins);document.getElementById('historyOut').textContent=money(outs);
- document.getElementById('historyTable').innerHTML=rows.map(x=>`<tr><td>${dateText(x.date)}</td><td>${x.type}</td><td>${x.source}${x.detail?' — '+x.detail:''}</td><td>${x.account}</td><td>${money(Math.abs(x.amount))}</td><td class="${x.amount>=0?'positive':'negative'}">${x.amount>=0?'Masuk':'Keluar'}</td></tr>`).join('')||'<tr><td colspan="6" class="empty">Tidak ada transaksi sesuai filter.</td></tr>';
+ document.getElementById('historyTable').innerHTML=rows.map(x=>`<tr><td>${dateText(x.date)}</td><td>${x.type}</td><td>${x.source}${x.detail?' — '+x.detail:''}</td><td>${x.account}</td><td>${money(Math.abs(x.amount))}</td><td>${flowIndicator(x.amount>=0?'in':'out')}</td></tr>`).join('')||'<tr><td colspan="6" class="empty">Tidak ada transaksi sesuai filter.</td></tr>';
 }
 function searchHistory(){
  const from=document.getElementById('historyFrom').value,to=document.getElementById('historyTo').value,acc=document.getElementById('historyAccount').value,type=document.getElementById('historyType').value;
