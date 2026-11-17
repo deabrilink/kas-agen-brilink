@@ -757,6 +757,40 @@ body{
   .page .grid.stats:not(.saldo-stats) .stat .value{font-size:18px}
 }
 
+
+/* Match summary-card dimensions exactly to Saldo & Rekening KPI cards */
+.page .grid.stats:not(.saldo-stats){
+  gap:11px !important;
+  margin-bottom:14px !important;
+}
+.page .grid.stats:not(.saldo-stats) .stat{
+  min-height:88px !important;
+  height:88px !important;
+  box-sizing:border-box !important;
+  padding:12px 16px !important;
+  border-radius:16px !important;
+  justify-content:center !important;
+}
+.page .grid.stats:not(.saldo-stats) .stat .label{
+  font-size:10px !important;margin:0 !important;
+}
+.page .grid.stats:not(.saldo-stats) .stat .value{
+  font-size:20px !important;margin:8px 0 3px !important;
+}
+.page .grid.stats:not(.saldo-stats) .stat small{font-size:9px !important}
+@media(max-width:760px){
+  .page .grid.stats:not(.saldo-stats){gap:9px !important}
+  .page .grid.stats:not(.saldo-stats) .stat{
+    min-height:78px !important;height:78px !important;
+    padding:10px 12px !important;border-radius:14px !important;
+  }
+  .page .grid.stats:not(.saldo-stats) .stat .value{
+    font-size:17px !important;margin:6px 0 2px !important;
+  }
+  .page .grid.stats:not(.saldo-stats) .stat .label{font-size:9px !important}
+  .page .grid.stats:not(.saldo-stats) .stat small{font-size:8px !important}
+}
+
 </style>
 </head>
 <body>
