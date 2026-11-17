@@ -791,6 +791,43 @@ body{
   .page .grid.stats:not(.saldo-stats) .stat small{font-size:8px !important}
 }
 
+
+/* Clear card outlines and consistent text alignment for all summary KPI boxes */
+.page .grid.stats .stat{
+  height:88px !important;min-height:88px !important;box-sizing:border-box !important;
+  padding:11px 15px !important;border-width:1.5px !important;border-style:solid !important;
+  display:flex !important;flex-direction:column !important;align-items:flex-start !important;
+  justify-content:center !important;gap:0 !important;
+  border-radius:15px !important;
+}
+.page .grid.stats .stat .label{
+  display:block !important;width:100%;min-height:14px;
+  line-height:14px !important;margin:0 !important;text-align:left !important;
+}
+.page .grid.stats .stat .value{
+  display:flex !important;align-items:center !important;width:100%;
+  min-height:25px;line-height:25px !important;margin:5px 0 2px !important;
+  text-align:left !important;
+}
+.page .grid.stats .stat small{
+  display:block !important;width:100%;min-height:12px;
+  line-height:12px !important;margin:0 !important;text-align:left !important;
+}
+.page .grid.stats .stat:nth-child(4n+1){border-color:#A9CCF5 !important}
+.page .grid.stats .stat:nth-child(4n+2){border-color:#C9B6F2 !important}
+.page .grid.stats .stat:nth-child(4n+3){border-color:#A9DFC5 !important}
+.page .grid.stats .stat:nth-child(4n){border-color:#F1C69F !important}
+.page .grid.stats .stat .balance-value-row{justify-content:space-between !important}
+@media(max-width:760px){
+  .page .grid.stats .stat{
+    height:78px !important;min-height:78px !important;
+    padding:9px 11px !important;border-radius:13px !important;
+  }
+  .page .grid.stats .stat .label{font-size:9px !important;min-height:12px;line-height:12px !important}
+  .page .grid.stats .stat .value{min-height:21px;line-height:21px !important;margin:4px 0 1px !important}
+  .page .grid.stats .stat small{font-size:8px !important;min-height:10px;line-height:10px !important}
+}
+
 </style>
 </head>
 <body>
