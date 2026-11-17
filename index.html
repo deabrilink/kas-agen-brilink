@@ -858,6 +858,16 @@ body{
 }
 
 
+
+/* Saldo Titipan: stack form and customer balance table vertically */
+#page-titipan .deposit-layout{
+  display:flex !important;
+  flex-direction:column !important;
+  gap:16px !important;
+}
+#page-titipan .deposit-layout > .panel{width:100%;min-width:0}
+#page-titipan .deposit-layout .table-wrap{width:100%;overflow-x:auto}
+
 </style>
 </head>
 <body>
@@ -1003,7 +1013,7 @@ body{
           <div class="stat"><div class="label">Pengembalian</div><div class="value" id="depositOutTotal">Rp 0</div><small>Akumulasi dana dikembalikan</small></div>
           <div class="stat"><div class="label">Jumlah Penitip</div><div class="value" id="depositCustomers">0</div><small>Penitip dengan saldo tersisa</small></div>
         </div>
-        <div class="grid two-col">
+        <div class="grid two-col deposit-layout">
           <div class="panel">
             <h3>Catat Saldo Titipan</h3>
             <form id="depositForm"><div class="form-grid">
