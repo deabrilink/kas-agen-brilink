@@ -842,6 +842,21 @@ body{
   position:relative;z-index:1;width:100%;text-align:left !important;
 }
 
+
+/* Slightly smaller account-card balance figures for cleaner spacing */
+.account .amount{
+  font-size:15.5px !important;
+  letter-spacing:-.35px !important;
+  line-height:1.2 !important;
+}
+.account .amount-block small{
+  font-size:9px !important;
+  line-height:1.2 !important;
+}
+@media(max-width:760px){
+  .account .amount{font-size:14px !important}
+}
+
 </style>
 </head>
 <body>
