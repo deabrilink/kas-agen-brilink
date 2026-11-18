@@ -943,6 +943,38 @@ body{
   .content .panel{-webkit-backdrop-filter:none !important;backdrop-filter:none !important}
 }
 
+
+/* Header/search/actions are shown only on Dashboard */
+.main:not(.dashboard-view) > .topbar{
+  display:none !important;
+}
+@media(max-width:760px){
+  .main:not(.dashboard-view) > .topbar{
+    display:block !important;
+    height:0 !important;
+    min-height:0 !important;
+    padding:0 !important;
+    border:0 !important;
+    overflow:visible !important;
+    background:transparent !important;
+    box-shadow:none !important;
+    backdrop-filter:none !important;
+  }
+  .main:not(.dashboard-view) > .topbar > :not(.menu-toggle){display:none !important}
+  .main:not(.dashboard-view) > .topbar > .menu-toggle{
+    display:block !important;
+    position:fixed !important;
+    top:12px !important;
+    left:14px !important;
+    z-index:100 !important;
+    width:40px !important;
+    height:40px !important;
+    border-radius:12px !important;
+    background:#fff !important;
+    box-shadow:0 3px 12px rgba(20,50,90,.14) !important;
+  }
+}
+
 </style>
 </head>
 <body>
@@ -1236,6 +1268,7 @@ function showPage(name){
  if(!target){console.warn('Halaman tidak ditemukan:',name);return;}
  document.querySelectorAll('.page').forEach(p=>p.classList.remove('active'));
  target.classList.add('active');
+ document.querySelector('.main').classList.toggle('dashboard-view',name==='dashboard');
  document.querySelectorAll('#navigation button').forEach(b=>b.classList.toggle('active',b.dataset.page===name));
  const label=document.querySelector(`#navigation button[data-page="${name}"]`)?.textContent.trim()||'Dashboard';
  document.getElementById('headerTitle').textContent=label;
