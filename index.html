@@ -1117,6 +1117,14 @@ body{
 #openOpeningModalBtn:focus-visible{
  color:#FFE889 !important;
 }
+
+/* YELLOW LABELS FOR SESSION ACTION BUTTONS */
+.session-yellow-text,
+.session-yellow-text:hover,
+.session-yellow-text:focus,
+.session-yellow-text:active{
+ color:#FFD84D !important;
+}
 </style>
 </head>
 <body>
@@ -1171,7 +1179,7 @@ body{
           <div class="stat"><div class="label">Total Pengeluaran Hari Ini</div><div class="value" id="dashExpense">Rp 0</div><small>Mutasi keluar hari ini</small></div>
           <div class="stat"><div class="label">Jumlah Transaksi Hari Ini</div><div class="value" id="dashCount">0</div><small>Transaksi tercatat</small></div>
         </div>
-        <div class="section-gap session-heading"><div><h3 style="margin:0 0 6px">Sesi Akhir · Tutup Kas Harian</h3><p class="muted" style="margin:0 0 16px">Saldo rekening, dana titipan, kas milik agen, dan selisih rekonsiliasi dihitung otomatis setiap hari.</p></div><button class="btn btn-primary" type="button" onclick="toggleNextDaySimulation()">◷ Simulasikan Hari Berikutnya</button></div>
+        <div class="section-gap session-heading"><div><h3 style="margin:0 0 6px">Sesi Akhir · Tutup Kas Harian</h3><p class="muted" style="margin:0 0 16px">Saldo rekening, dana titipan, kas milik agen, dan selisih rekonsiliasi dihitung otomatis setiap hari.</p></div><button class="btn btn-primary session-yellow-text" type="button" onclick="toggleNextDaySimulation()">◷ Simulasikan Hari Berikutnya</button></div>
         <div class="panel" id="nextDaySimulation" style="display:none">
           <div class="simulation-head"><div><h3 style="margin:0 0 4px">Simulasi Hari Berikutnya</h3><p class="muted" style="margin:0;font-size:11px">Saldo awal dan kas awal mengikuti sesi terakhir. Isi perkiraan pendapatan, pengeluaran, serta perubahan titipan. Saat disimpan, seluruh penyesuaian akan diterapkan ke rekening yang dipilih dan memperbarui saldo aktual.</p></div><span class="pill warn">SIMULASI</span></div>
           <div class="simulation-date-row"><span class="muted">Tanggal simulasi</span><b id="simulationDate">-</b></div>
@@ -1197,7 +1205,7 @@ body{
         <div class="panel section-gap">
           <div class="form-grid">
             <div class="field"><label for="physicalCashInput">Kas Fisik Akhir (input saat tutup kas)</label><input id="physicalCashInput" class="money-input" type="text" inputmode="numeric" placeholder="Masukkan hasil hitung uang fisik"><small class="muted">Isi berdasarkan uang nyata yang dihitung. Selisih akan dibandingkan dengan saldo kas akhir sistem.</small></div>
-            <div class="field" style="align-self:end"><button class="btn btn-primary" type="button" onclick="savePhysicalCash()">Simpan Kas Fisik Hari Ini</button><small id="physicalCashStatus" class="muted"></small></div>
+            <div class="field" style="align-self:end"><button class="btn btn-primary session-yellow-text" type="button" onclick="savePhysicalCash()">Simpan Kas Fisik Hari Ini</button><small id="physicalCashStatus" class="muted"></small></div>
           </div>
         </div>
         <div class="panel section-gap">
