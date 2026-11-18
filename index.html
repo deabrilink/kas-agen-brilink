@@ -1460,15 +1460,16 @@ function setDefaults(){
   sel.innerHTML=first+ACCOUNTS.map(a=>`<option value="${a}">${a}</option>`).join('');
   if(sel.id==='simAccount') sel.value='UANG CASH';
  });
- updateTransactionAccountOptions();
+ updateAllAccountOptionBalances();
 }
 function balance(a){return opening[a]+ledger.filter(x=>x.account===a).reduce((s,x)=>s+x.amount,0)}
-function updateTransactionAccountOptions(){
- const sel=document.getElementById('trxAccount');
- if(!sel)return;
- const selected=sel.value;
- sel.innerHTML=ACCOUNTS.map(a=>`<option value="${a}">${a} (${money(balance(a))})</option>`).join('');
- if(ACCOUNTS.includes(selected))sel.value=selected;
+function updateAllAccountOptionBalances(){
+ document.querySelectorAll('select.account-options').forEach(sel=>{
+  Array.from(sel.options).forEach(option=>{
+   const account=option.value;
+   if(ACCOUNTS.includes(account))option.textContent=`${account} (${money(balance(account))})`;
+  });
+ });
 }
 function renderBalanceVisibility(){
  const amount=document.getElementById('balanceTotalValue');
@@ -1769,7 +1770,7 @@ function importBackup(event){const file=event.target.files?.[0];if(!file)return;
 function loadLocalData(){try{const raw=localStorage.getItem('kasAgenBrilinkData_v121');if(raw)restoreData(JSON.parse(raw));}catch(e){console.warn('Data lokal tidak dapat dipulihkan',e)}}
 
 function refresh(){
- updateTransactionAccountOptions();renderAccounts('balanceAccounts');renderTables();renderDebts();renderDeposits();renderSession();renderAccountControls();persistData();if(document.getElementById('nextDaySimulation').style.display!=='none')renderNextDaySimulation();
+ updateAllAccountOptionBalances();renderAccounts('balanceAccounts');renderTables();renderDebts();renderDeposits();renderSession();renderAccountControls();persistData();if(document.getElementById('nextDaySimulation').style.display!=='none')renderNextDaySimulation();
  const total=ACCOUNTS.reduce((s,a)=>s+balance(a),0),today=new Date().toDateString();
  const todayLedger=ledger.filter(x=>new Date(x.date).toDateString()===today);
  document.getElementById('dashTotal').textContent=money(total);
