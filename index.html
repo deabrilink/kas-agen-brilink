@@ -1108,6 +1108,15 @@ body{
 .main .content select option{
   color:#000000 !important;
 }
+
+/* INPUT SALDO AWAL BUTTON: yellow label */
+#openOpeningModalBtn{
+ color:#FFD84D !important;
+}
+#openOpeningModalBtn:hover,
+#openOpeningModalBtn:focus-visible{
+ color:#FFE889 !important;
+}
 </style>
 </head>
 <body>
@@ -1233,7 +1242,7 @@ body{
       <!-- SALDO -->
       <section class="page" id="page-saldo">
         <div class="page-title"><div><h1>Saldo & Rekening</h1><p>Pantau saldo seluruh rekening, aplikasi, dan uang tunai.</p></div><button class="btn btn-primary" id="openOpeningModalBtn" type="button" onclick="openOpeningModal()">＋ Input Saldo Awal</button></div>
-        <div class="grid stats saldo-stats"><div class="stat kpi-card kpi-primary"><div class="label">Total Saldo Tersedia</div><div class="value balance-value-row"><span id="balanceTotalValue">Rp 0</span><button class="balance-visibility-btn" id="toggleBalanceVisibility" type="button" onclick="toggleBalanceVisibility()" aria-label="Sembunyikan saldo" title="Sembunyikan saldo" aria-pressed="false"><svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M2 12s3.6-7 10-7 10 7 10 7-3.6 7-10 7S2 12 2 12Z"/><circle cx="12" cy="12" r="3"/></svg></button></div><small>Seluruh rekening dan kas</small></div><div class="stat kpi-card kpi-purple"><div class="label">Total Piutang</div><div class="value" id="balanceDebt">Rp 0</div><small>Hutang pelanggan</small></div><div class="stat kpi-card kpi-green"><div class="label">Jumlah Rekening</div><div class="value">7</div><small>Termasuk uang cash</small></div><div class="stat kpi-card kpi-orange"><div class="label">Mutasi Tercatat</div><div class="value" id="balanceMutations">0</div><small>Seluruh aktivitas saldo</small></div></div>
+        <div class="grid stats saldo-stats"><div class="stat kpi-card kpi-primary"><div class="label">Total Saldo Tersedia</div><div class="value balance-value-row"><span id="balanceTotalValue">Rp 0</span></div><small>Seluruh rekening dan kas</small></div><div class="stat kpi-card kpi-purple"><div class="label">Total Piutang</div><div class="value" id="balanceDebt">Rp 0</div><small>Hutang pelanggan</small></div><div class="stat kpi-card kpi-green"><div class="label">Jumlah Rekening</div><div class="value">7</div><small>Termasuk uang cash</small></div><div class="stat kpi-card kpi-orange"><div class="label">Mutasi Tercatat</div><div class="value" id="balanceMutations">0</div><small>Seluruh aktivitas saldo</small></div></div>
         <div class="panel"><h3>Daftar Saldo</h3><div class="grid account-grid" id="balanceAccounts"></div></div>
         <div class="panel section-gap"><h3>Mutasi Saldo Terbaru</h3><div class="table-wrap"><table><thead><tr><th>Tanggal</th><th>Rekening</th><th>Sumber</th><th>Nominal</th></tr></thead><tbody id="ledgerTable"></tbody></table></div></div>
         <div class="modal-backdrop" id="openingModal" role="dialog" aria-modal="true" aria-labelledby="openingModalTitle" onclick="if(event.target===this)closeOpeningModal()">
@@ -1421,17 +1430,8 @@ function setDefaults(){
 function balance(a){return opening[a]+ledger.filter(x=>x.account===a).reduce((s,x)=>s+x.amount,0)}
 function renderBalanceVisibility(){
  const amount=document.getElementById('balanceTotalValue');
- const button=document.getElementById('toggleBalanceVisibility');
- if(!amount||!button)return;
- amount.textContent=balanceAmountVisible?money(latestAvailableBalance):'••••••••';
- button.setAttribute('aria-label',balanceAmountVisible?'Sembunyikan saldo':'Tampilkan saldo');
- button.setAttribute('title',balanceAmountVisible?'Sembunyikan saldo':'Tampilkan saldo');
- button.setAttribute('aria-pressed',String(!balanceAmountVisible));
- button.innerHTML=balanceAmountVisible
-  ? '<svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M2 12s3.6-7 10-7 10 7 10 7-3.6 7-10 7S2 12 2 12Z"/><circle cx="12" cy="12" r="3"/></svg>'
-  : '<svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 3l18 18M10.6 10.6a2 2 0 0 0 2.8 2.8"/><path d="M9.9 5.2A10.7 10.7 0 0 1 12 5c6.4 0 10 7 10 7a14.8 14.8 0 0 1-3.1 3.8M6.2 6.2C3.5 8 2 12 2 12s3.6 7 10 7a10.5 10.5 0 0 0 4-.8"/></svg>';
+ if(amount)amount.textContent=money(latestAvailableBalance);
 }
-function toggleBalanceVisibility(){balanceAmountVisible=!balanceAmountVisible;renderBalanceVisibility();}
 function addMove(account,amount,source,type,detail='',dateValue=nowLocal()){
  ledger.push({date:dateValue||nowLocal(),account,amount,source,type,detail});
 }
