@@ -208,6 +208,10 @@ tr:hover td{background:#fbfcff}
 .pill{display:inline-block;border-radius:30px;padding:4px 8px;font-size:9px;font-weight:800;background:#e9f8ef;color:#16804a}
 .pill.warn{background:#fff5dc;color:#9b6b00}.pill.red{background:#ffeded;color:#c13b3b}.pill.blue{background:#eaf2ff;color:#2459a5}
 .muted{color:var(--muted)}.positive{color:var(--green);font-weight:800}.negative{color:var(--red);font-weight:800}
+/* Indikator nominal pada Riwayat Transaksi: saldo masuk hijau, saldo keluar merah */
+#historyTable td.positive{color:#159957!important;font-weight:800!important}
+#historyTable td.negative{color:#dc4545!important;font-weight:800!important}
+#historyTable td.neutral{color:#718096!important;font-weight:700!important}
 .section-gap{margin-top:16px}.toolbar{display:flex;flex-wrap:wrap;gap:9px;align-items:center;margin-bottom:13px}
 .toolbar input,.toolbar select{border:1px solid var(--line);background:#fff;border-radius:9px;padding:9px 10px;font-size:11px}
 .chart{height:175px;display:flex;align-items:end;gap:13px;padding:15px 8px 0;border-bottom:1px solid var(--line)}
@@ -1774,7 +1778,7 @@ function refresh(){
 function updateHistory(rows){
  const ins=rows.filter(x=>x.amount>0).reduce((s,x)=>s+x.amount,0),outs=-rows.filter(x=>x.amount<0).reduce((s,x)=>s+x.amount,0);
  document.getElementById('historyCount').textContent=rows.length;document.getElementById('historyNominal').textContent=money(rows.reduce((s,x)=>s+Math.abs(x.amount),0));document.getElementById('historyIn').textContent=money(ins);document.getElementById('historyOut').textContent=money(outs);
- document.getElementById('historyTable').innerHTML=rows.map(x=>`<tr><td>${dateText(x.date)}</td><td>${x.type}</td><td>${x.source}${x.detail?' — '+x.detail:''}</td><td>${x.account}</td><td class="${x.amount>=0?'positive':'negative'}">${money(Math.abs(x.amount))}</td></tr>`).join('')||'<tr><td colspan="6" class="empty">Tidak ada transaksi sesuai filter.</td></tr>';
+ document.getElementById('historyTable').innerHTML=rows.map(x=>{const amountClass=x.amount>0?'positive':x.amount<0?'negative':'neutral';return `<tr><td>${dateText(x.date)}</td><td>${x.type}</td><td>${x.source}${x.detail?' — '+x.detail:''}</td><td>${x.account}</td><td class="${amountClass}">${money(Math.abs(x.amount))}</td></tr>`}).join('')||'<tr><td colspan="6" class="empty">Tidak ada transaksi sesuai filter.</td></tr>';
 }
 function searchHistory(){
  const from=document.getElementById('historyFrom').value,to=document.getElementById('historyTo').value,acc=document.getElementById('historyAccount').value,type=document.getElementById('historyType').value;
