@@ -995,6 +995,24 @@ body{
 .content .table-wrap td:first-child{
   width:1%;
 }
+/* DATE COLUMN FIX: all tables with a first header named Tanggal */
+.content .table-wrap table:has(> thead > tr > th:first-child) {
+  border-collapse:collapse;
+}
+.content .table-wrap table:has(> thead > tr > th:first-child) th:first-child,
+.content .table-wrap table:has(> thead > tr > th:first-child) td:first-child{
+  box-sizing:border-box;
+  width:150px !important;
+  min-width:150px !important;
+  max-width:150px !important;
+  white-space:nowrap;
+  overflow:hidden;
+  text-overflow:ellipsis;
+}
+@media(max-width:760px){
+ .content .table-wrap table th:first-child,
+ .content .table-wrap table td:first-child{min-width:150px !important;max-width:150px !important}
+}
 </style>
 </head>
 <body>
