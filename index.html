@@ -196,6 +196,9 @@ button{cursor:pointer}
 .form-actions{display:flex;gap:8px;justify-content:flex-end;margin-top:15px}
 .table-wrap{overflow:auto;border:1px solid var(--line);border-radius:12px}
 table{width:100%;border-collapse:collapse;white-space:nowrap;font-size:11px}
+.fee-history-table{table-layout:auto}
+.fee-history-table th:first-child,.fee-history-table td:first-child{width:1%;white-space:nowrap;padding-right:18px}
+.fee-history-table th:last-child,.fee-history-table td:last-child{text-align:right}
 .session-table td,.session-table th{padding:13px 12px}
 .session-table tbody tr:first-child td{font-weight:700}
 .session-table .difference-cell{font-weight:800}
@@ -1198,7 +1201,7 @@ body{
           <div class="field"><label>Fee Masuk Ke</label><select id="feeAccount" class="account-options"></select></div>
           <div class="field full"><label>Keterangan</label><textarea id="feeNote"></textarea></div>
         </div><div class="form-actions"><button class="btn btn-primary">Simpan Fee</button></div></form></div>
-        <div class="panel"><h3>Riwayat Fee & Komisi</h3><div class="table-wrap"><table><thead><tr><th>Tanggal</th><th>Jenis</th><th>Masuk Ke</th><th>Jumlah</th></tr></thead><tbody id="feeTable"></tbody></table></div></div></div>
+        <div class="panel"><h3>Riwayat Fee & Komisi</h3><div class="table-wrap"><table class="fee-history-table"><thead><tr><th>Tanggal</th><th>Jenis</th><th>Masuk Ke</th><th>Jumlah</th></tr></thead><tbody id="feeTable"></tbody></table></div></div></div>
       </section>
       <!-- WARUNG -->
       <section class="page" id="page-warung">
