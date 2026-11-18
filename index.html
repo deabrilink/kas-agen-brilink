@@ -1099,11 +1099,15 @@ body{
 }
 
 
-/* MAIN WEBSITE TEXT COLOR: solid black; sidebar keeps its own palette */
+/* MAIN WEBSITE TEXT COLOR: solid black; preserve semantic cashflow colors */
 .main .content,
-.main .content *{
+.main .content *:not(.positive):not(.negative):not(.neutral){
   color:#000000 !important;
 }
+/* Semantic amount colors must remain visible in every history table */
+.main .content table td.positive{color:#159957!important;font-weight:800!important}
+.main .content table td.negative{color:#dc4545!important;font-weight:800!important}
+.main .content table td.neutral{color:#718096!important;font-weight:700!important}
 .main .content input::placeholder,
 .main .content textarea::placeholder{
   color:#333333 !important;
