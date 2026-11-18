@@ -1013,6 +1013,17 @@ body{
  .content .table-wrap table th:first-child,
  .content .table-wrap table td:first-child{min-width:150px !important;max-width:150px !important}
 }
+
+/* AUTO-FIT DATE COLUMNS IN EVERY GENERATED TABLE */
+.content .table-wrap table th.date-col,
+.content .table-wrap table td.date-col{
+  width:112px !important;
+  min-width:112px !important;
+  max-width:112px !important;
+  white-space:nowrap !important;
+  overflow:hidden;
+  text-overflow:ellipsis;
+}
 </style>
 </head>
 <body>
@@ -1731,6 +1742,31 @@ document.getElementById('depositForm').addEventListener('submit',e=>{
  e.target.reset();setDefaults();refresh();alert('Catatan saldo titipan berhasil disimpan.');
 });
 loadLocalData();setDefaults();buildSettings();buildMinimumSettings();refresh();searchHistory();
+</script>
+
+<script>
+/* DYNAMIC DATE COLUMN WIDTH: match header text across all tables */
+(function(){
+  function fitDateColumns(){
+    document.querySelectorAll('.content .table-wrap table').forEach(function(table){
+      var headerRow=table.querySelector('thead tr');
+      if(!headerRow)return;
+      var headers=Array.from(headerRow.children);
+      var index=headers.findIndex(function(cell){
+        return /^tanggal\\b/i.test((cell.textContent||'').trim());
+      });
+      if(index<0)return;
+      table.querySelectorAll('tr').forEach(function(row){
+        var cell=row.children[index];
+        if(cell){cell.classList.add('date-col');cell.style.width='112px';cell.style.minWidth='112px';cell.style.maxWidth='112px';}
+      });
+    });
+  }
+  if(document.readyState==='loading')document.addEventListener('DOMContentLoaded',fitDateColumns);
+  else fitDateColumns();
+  var root=document.querySelector('.content')||document.body;
+  new MutationObserver(fitDateColumns).observe(root,{childList:true,subtree:true});
+})();
 </script>
 </body>
 </html>
