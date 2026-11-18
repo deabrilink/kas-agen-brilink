@@ -208,10 +208,10 @@ tr:hover td{background:#fbfcff}
 .pill{display:inline-block;border-radius:30px;padding:4px 8px;font-size:9px;font-weight:800;background:#e9f8ef;color:#16804a}
 .pill.warn{background:#fff5dc;color:#9b6b00}.pill.red{background:#ffeded;color:#c13b3b}.pill.blue{background:#eaf2ff;color:#2459a5}
 .muted{color:var(--muted)}.positive{color:var(--green);font-weight:800}.negative{color:var(--red);font-weight:800}
-/* Indikator nominal pada Riwayat Transaksi: saldo masuk hijau, saldo keluar merah */
-#historyTable td.positive{color:#159957!important;font-weight:800!important}
-#historyTable td.negative{color:#dc4545!important;font-weight:800!important}
-#historyTable td.neutral{color:#718096!important;font-weight:700!important}
+/* Indikator nominal pada seluruh tabel riwayat: saldo masuk hijau, saldo keluar merah */
+table td.positive{color:#159957!important;font-weight:800!important}
+table td.negative{color:#dc4545!important;font-weight:800!important}
+table td.neutral{color:#718096!important;font-weight:700!important}
 .section-gap{margin-top:16px}.toolbar{display:flex;flex-wrap:wrap;gap:9px;align-items:center;margin-bottom:13px}
 .toolbar input,.toolbar select{border:1px solid var(--line);background:#fff;border-radius:9px;padding:9px 10px;font-size:11px}
 .chart{height:175px;display:flex;align-items:end;gap:13px;padding:15px 8px 0;border-bottom:1px solid var(--line)}
@@ -1478,9 +1478,9 @@ function renderTables(){
  const q=(document.getElementById('trxFilter')?.value||'').toLowerCase(),type=document.getElementById('trxTypeFilter')?.value||'';
  const rows=transactions.filter(t=>t.service.toLowerCase().includes(q)&&(!type||t.service===type)).slice().reverse();
  document.getElementById('trxTable').innerHTML=rows.map(t=>{const outgoing=['Tarik Tunai','PKH','BPNT'].includes(t.service);return `<tr><td>${dateText(t.date)}</td><td>${t.service}</td><td>${t.account}</td><td class="${outgoing?'negative':'positive'}">${money(t.amount)}</td><td class="positive">${money(t.agentFee)}</td></tr>`}).join('')||'<tr><td colspan="5" class="empty">Belum ada transaksi.</td></tr>';
- document.getElementById('ledgerTable').innerHTML=ledger.slice().reverse().slice(0,30).map(x=>`<tr><td>${dateText(x.date)}</td><td>${x.account}</td><td>${x.source}</td><td class="${x.amount>=0?'positive':'negative'}">${money(Math.abs(x.amount))}</td></tr>`).join('')||'<tr><td colspan="5" class="empty">Belum ada mutasi.</td></tr>';
+ document.getElementById('ledgerTable').innerHTML=ledger.slice().reverse().slice(0,30).map(x=>`<tr><td>${dateText(x.date)}</td><td>${x.account}</td><td>${x.source}</td><td class="${x.amount>0?'positive':x.amount<0?'negative':'neutral'}">${money(Math.abs(x.amount))}</td></tr>`).join('')||'<tr><td colspan="5" class="empty">Belum ada mutasi.</td></tr>';
  document.getElementById('opsTable').innerHTML=operations.slice().reverse().map(o=>`<tr><td>${dateText(o.date)}</td><td>${o.category}</td><td class="${o.type==='in'?'positive':'negative'}">${money(o.amount)}</td></tr>`).join('')||'<tr><td colspan="4" class="empty">Belum ada catatan.</td></tr>';
- document.getElementById('transferTable').innerHTML=transfers.slice().reverse().map(t=>`<tr><td>${dateText(t.date)}</td><td>${t.from}</td><td>${t.to}</td><td class="negative">${money(t.amount)}</td><td class="negative">${money(t.fee)}</td></tr>`).join('')||'<tr><td colspan="5" class="empty">Belum ada transfer.</td></tr>';
+ document.getElementById('transferTable').innerHTML=transfers.slice().reverse().map(t=>`<tr><td>${dateText(t.date)}</td><td>${t.from}</td><td>${t.to}</td><td class="negative">${money(t.amount)}</td><td class="${t.fee>0?'negative':'neutral'}">${money(t.fee)}</td></tr>`).join('')||'<tr><td colspan="5" class="empty">Belum ada transfer.</td></tr>';
  document.getElementById('feeTable').innerHTML=fees.slice().reverse().map(f=>`<tr><td>${dateText(f.date)}</td><td>${f.type}</td><td>${f.account}</td><td class="positive">${money(f.amount)}</td></tr>`).join('')||'<tr><td colspan="4" class="empty">Belum ada fee.</td></tr>';
  document.getElementById('salesTable').innerHTML=sales.slice().reverse().map(s=>`<tr><td>${dateText(s.date)}</td><td>${s.type}</td><td class="positive">${money(s.amount)}</td><td>${s.account}</td></tr>`).join('')||'<tr><td colspan="4" class="empty">Belum ada penjualan.</td></tr>';
 }
@@ -1492,7 +1492,7 @@ function renderDebts(){
  const paySelect=document.getElementById('payDebtId');paySelect.innerHTML='<option value="">Pilih tagihan</option>'+debts.filter(d=>d.amount-payments.filter(p=>p.debtId===d.id).reduce((s,p)=>s+p.amount,0)>0).map(d=>`<option value="${d.id}">${d.name} — ${money(d.amount-payments.filter(p=>p.debtId===d.id).reduce((s,p)=>s+p.amount,0))} tersisa</option>`).join('');
  const detail=selectedCustomer?debts.filter(d=>d.name===selectedCustomer):[];
  document.getElementById('debtDetailLabel').textContent=selectedCustomer?'Rincian hutang: '+selectedCustomer:'Pilih pelanggan pada tabel di atas untuk melihat rincian.';
- document.getElementById('debtDetailTable').innerHTML=detail.map(d=>{const p=payments.filter(x=>x.debtId===d.id).reduce((s,x)=>s+x.amount,0),r=d.amount-p;return `<tr><td>${dateText(d.date)}</td><td>${d.name}</td><td>${d.account}</td><td>${d.service}</td><td class="negative">${money(d.amount)}</td><td class="positive">${money(p)}</td><td class="${r>0?'negative':'positive'}">${money(r)}</td><td>${d.dueDate||'—'}</td><td><span class="pill ${r===0?'':(d.dueDate&&d.dueDate<dateKeyLocal())?'red':'warn'}">${r===0?'Lunas':(d.dueDate&&d.dueDate<dateKeyLocal())?'Terlambat':p>0?'Cicilan':'Belum Lunas'}</span></td></tr>`}).join('')||'<tr><td colspan="9" class="empty">Belum ada rincian untuk ditampilkan.</td></tr>';
+ document.getElementById('debtDetailTable').innerHTML=detail.map(d=>{const p=payments.filter(x=>x.debtId===d.id).reduce((s,x)=>s+x.amount,0),r=d.amount-p;return `<tr><td>${dateText(d.date)}</td><td>${d.name}</td><td>${d.account}</td><td>${d.service}</td><td class="negative">${money(d.amount)}</td><td class="${p>0?'positive':'neutral'}">${money(p)}</td><td class="${r>0?'negative':'neutral'}">${money(r)}</td><td>${d.dueDate||'—'}</td><td><span class="pill ${r===0?'':(d.dueDate&&d.dueDate<dateKeyLocal())?'red':'warn'}">${r===0?'Lunas':(d.dueDate&&d.dueDate<dateKeyLocal())?'Terlambat':p>0?'Cicilan':'Belum Lunas'}</span></td></tr>`}).join('')||'<tr><td colspan="9" class="empty">Belum ada rincian untuk ditampilkan.</td></tr>';
  const reminders=debts.map(d=>{const paid=payments.filter(x=>x.debtId===d.id).reduce((a,x)=>a+x.amount,0);return {...d,remaining:d.amount-paid}}).filter(d=>d.remaining>0).sort((a,b)=>(a.dueDate||'9999').localeCompare(b.dueDate||'9999'));
  document.getElementById('debtReminderList').innerHTML=reminders.length?reminders.map(d=>`<div style="display:flex;justify-content:space-between;gap:12px;padding:10px 0;border-bottom:1px solid #edf0f5;font-size:11px"><span><b>${d.name}</b><br><small class="muted">${d.dueDate?'Pengingat: '+d.dueDate:'Belum ada tanggal pengingat'} · ${d.account}</small></span><b class="${d.dueDate&&d.dueDate<dateKeyLocal()?'negative':'positive'}">${money(d.remaining)}</b></div>`).join(''):'<div class="empty">Tidak ada hutang yang perlu diingatkan.</div>';
 }
@@ -1732,7 +1732,7 @@ function renderDeposits(){
  document.getElementById('depositCustomerTable').innerHTML=rows.map(r=>`<tr><td><b>${r.name}</b></td><td>${money(r.inn)}</td><td>${money(r.out)}</td><td class="${r.balance>0?'positive':'muted'}">${money(r.balance)}</td></tr>`).join('')||'<tr><td colspan="4" class="empty">Belum ada saldo titipan.</td></tr>';
  document.getElementById('depositTable').innerHTML=deposits.slice().reverse().map(d=>{
    const label=d.type==='opening'?'Titipan Awal':d.type==='in'?'Titipan Masuk':'Pengembalian Titipan';
-   const cls=d.type==='out'?'negative':'positive';
+   const cls=d.type==='out'?'negative':d.type==='in'?'positive':'neutral';
    return `<tr><td>${dateText(d.date)}</td><td>${d.name}</td><td>${label}</td><td>${d.account||'—'}</td><td class="${cls}">${d.type==='out'?'-':''}${money(d.amount)}</td><td>${d.note||'—'}</td></tr>`;
  }).join('')||'<tr><td colspan="6" class="empty">Belum ada catatan titipan.</td></tr>';
 }
