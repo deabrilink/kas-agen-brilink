@@ -1093,6 +1093,25 @@ body{
 @media(max-width:760px){
   .content .page-title h1{font-size:21px !important}
 }
+
+/* DASHBOARD TOTAL BALANCE CARD EXPAND / COLLAPSE */
+.dashboard-total-card{position:relative;transition:min-height .2s ease,padding .2s ease}
+.dashboard-total-card .total-card-toggle{
+ position:absolute;right:13px;top:11px;width:27px;height:27px;border:1px solid rgba(255,255,255,.24);
+ border-radius:8px;background:rgba(255,255,255,.12);color:#fff;display:grid;place-items:center;
+ font-size:17px;line-height:1;padding:0;cursor:pointer
+}
+.dashboard-total-card .total-card-toggle:hover{background:rgba(255,255,255,.22)}
+.dashboard-total-card .total-card-caption{display:block;transition:opacity .15s ease}
+.dashboard-total-card.is-collapsed{min-height:64px!important;height:64px;padding:12px 48px 12px 16px!important;display:flex;flex-direction:column;justify-content:center}
+.dashboard-total-card.is-collapsed .value{margin:5px 0 0!important;font-size:19px!important}
+.dashboard-total-card.is-collapsed .total-card-caption{display:none!important}
+.dashboard-total-card.is-collapsed .total-card-toggle{top:50%;transform:translateY(-50%)}
+.dashboard-total-card.is-collapsed .toggle-chevron{display:inline-block;transform:rotate(180deg)}
+@media(max-width:760px){
+ .dashboard-total-card.is-collapsed{min-height:58px!important;height:58px;padding:9px 44px 9px 12px!important}
+ .dashboard-total-card.is-collapsed .value{font-size:17px!important}
+}
 </style>
 </head>
 <body>
@@ -1142,7 +1161,7 @@ body{
       <section class="page active" id="page-dashboard">
         <div class="page-title"><div><h1>Dashboard</h1><p>Ringkasan kondisi keuangan dan penutupan kas harian agen.</p></div></div>
         <div class="grid stats">
-          <div class="stat"><div class="label">Total Saldo Tersedia</div><div class="value" id="dashTotal">Rp 0</div><small>Seluruh rekening dan uang cash</small></div>
+          <div class="stat dashboard-total-card" id="dashboardTotalCard"><div class="label">Total Saldo Tersedia</div><button class="total-card-toggle" id="toggleDashboardTotal" type="button" onclick="toggleDashboardTotalCard()" aria-label="Ciutkan kartu total saldo" aria-expanded="true" title="Ciutkan kartu"><span class="toggle-chevron">⌃</span></button><div class="value" id="dashTotal">Rp 0</div><small class="total-card-caption">Seluruh rekening dan uang cash</small></div>
           <div class="stat"><div class="label">Total Pemasukan Hari Ini</div><div class="value" id="dashIncome">Rp 0</div><small>Mutasi masuk hari ini</small></div>
           <div class="stat"><div class="label">Total Pengeluaran Hari Ini</div><div class="value" id="dashExpense">Rp 0</div><small>Mutasi keluar hari ini</small></div>
           <div class="stat"><div class="label">Jumlah Transaksi Hari Ini</div><div class="value" id="dashCount">0</div><small>Transaksi tercatat</small></div>
@@ -1380,6 +1399,17 @@ let actualBalances={};
 let activeSimulationSaved=false;
 let activeSimulationSnapshot=null;
 let selectedCustomer='';
+
+function toggleDashboardTotalCard(){
+ const card=document.getElementById('dashboardTotalCard');
+ const button=document.getElementById('toggleDashboardTotal');
+ if(!card||!button)return;
+ const collapsed=card.classList.toggle('is-collapsed');
+ button.setAttribute('aria-expanded',String(!collapsed));
+ button.setAttribute('aria-label',collapsed?'Perluas kartu total saldo':'Ciutkan kartu total saldo');
+ button.title=collapsed?'Perluas kartu':'Ciutkan kartu';
+ button.querySelector('.toggle-chevron').textContent=collapsed?'⌄':'⌃';
+}
 function toggleSidebar(){document.getElementById('sidebar').classList.toggle('open');document.getElementById('overlay').classList.toggle('show')}
 function showPage(name){
  const target=document.getElementById('page-'+name);
