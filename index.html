@@ -1125,6 +1125,24 @@ body{
 .main .content button.session-yellow-text:active{
  color:#FFD84D !important;
 }
+
+/* CENTER ALERT: animated icon, no message text or button, auto dismiss */
+#appCenterAlert{position:fixed;inset:0;z-index:99999;display:flex;align-items:center;justify-content:center;padding:20px;background:rgba(7,18,38,.48);backdrop-filter:blur(7px);-webkit-backdrop-filter:blur(7px);opacity:0;visibility:hidden;transition:opacity .22s ease,visibility .22s ease}
+#appCenterAlert.is-visible{opacity:1;visibility:visible}
+#appCenterAlert .center-alert-card{width:min(310px,88vw);min-height:195px;background:#fff;border:1px solid rgba(255,255,255,.9);border-radius:22px;box-shadow:0 24px 70px rgba(0,0,0,.24);display:flex;flex-direction:column;align-items:center;justify-content:center;gap:17px;padding:28px 22px;transform:translateY(12px) scale(.94);transition:transform .28s cubic-bezier(.2,.8,.2,1)}
+#appCenterAlert.is-visible .center-alert-card{transform:translateY(0) scale(1)}
+#appCenterAlert .center-alert-icon{width:82px;height:82px;border-radius:50%;display:grid;place-items:center;background:#e9f8ef}
+#appCenterAlert .center-alert-icon svg{width:48px;height:48px;overflow:visible}
+#appCenterAlert .check-circle{fill:none;stroke:#18a45b;stroke-width:3;stroke-dasharray:157;stroke-dashoffset:157;animation:centerCircleDraw .55s ease-out forwards}
+#appCenterAlert .check-mark{fill:none;stroke:#18a45b;stroke-width:4;stroke-linecap:round;stroke-linejoin:round;stroke-dasharray:42;stroke-dashoffset:42;animation:centerCheckDraw .38s .48s ease-out forwards}
+#appCenterAlert .center-alert-title{font-size:19px;font-weight:800;letter-spacing:-.3px;color:#111827;text-align:center}
+#appCenterAlert.is-error .center-alert-icon{background:#fff0f0}
+#appCenterAlert.is-error .check-circle,#appCenterAlert.is-error .check-mark{stroke:#dc4545}
+#appCenterAlert.is-warning .center-alert-icon{background:#fff7e5}
+#appCenterAlert.is-warning .check-circle,#appCenterAlert.is-warning .check-mark{stroke:#d99a19}
+@keyframes centerCircleDraw{to{stroke-dashoffset:0}}
+@keyframes centerCheckDraw{to{stroke-dashoffset:0}}
+@media(prefers-reduced-motion:reduce){#appCenterAlert,#appCenterAlert .center-alert-card{transition:none}#appCenterAlert .check-circle,#appCenterAlert .check-mark{animation:none!important;stroke-dashoffset:0!important}}
 </style>
 </head>
 <body>
@@ -1859,6 +1877,35 @@ loadLocalData();setDefaults();buildSettings();buildMinimumSettings();refresh();s
   else fitDateColumns();
   var root=document.querySelector('.content')||document.body;
   new MutationObserver(fitDateColumns).observe(root,{childList:true,subtree:true});
+})();
+</script>
+
+<script>
+/* CENTER ALERT CONTROLLER */
+(function(){
+ const overlay=document.createElement('div');
+ overlay.id='appCenterAlert';
+ overlay.setAttribute('role','status');
+ overlay.setAttribute('aria-live','polite');
+ overlay.innerHTML='<div class="center-alert-card"><div class="center-alert-icon"><svg viewBox="0 0 56 56" aria-hidden="true"><circle class="check-circle" cx="28" cy="28" r="25"></circle><path class="check-mark" d="M15 29.5 23.5 38 41.5 19.5"></path></svg></div><div class="center-alert-title">Berhasil</div></div>';
+ document.body.appendChild(overlay);
+ let hideTimer;
+ window.alert=function(message){
+   const value=String(message||'');
+   const isError=/gagal|tidak dapat|melebihi|tidak mencukupi|error/i.test(value);
+   const isWarning=/pilih|harus|periksa|belum dapat|tidak valid/i.test(value);
+   const title=isError?'Tidak Berhasil':isWarning?'Perhatian':'Berhasil';
+   overlay.classList.remove('is-error','is-warning','is-visible');
+   void overlay.offsetWidth;
+   overlay.querySelector('.center-alert-title').textContent=title;
+   overlay.classList.toggle('is-error',isError);
+   overlay.classList.toggle('is-warning',isWarning);
+   const icon=overlay.querySelector('.center-alert-icon');
+   icon.innerHTML='<svg viewBox="0 0 56 56" aria-hidden="true"><circle class="check-circle" cx="28" cy="28" r="25"></circle><path class="check-mark" d="M15 29.5 23.5 38 41.5 19.5"></path></svg>';
+   overlay.classList.add('is-visible');
+   clearTimeout(hideTimer);
+   hideTimer=setTimeout(()=>overlay.classList.remove('is-visible'),2100);
+ };
 })();
 </script>
 </body>
