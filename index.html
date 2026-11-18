@@ -1024,6 +1024,28 @@ body{
   overflow:hidden;
   text-overflow:ellipsis;
 }
+
+/* COMPACT DATE INPUTS: only the date/time fields in entry forms */
+.content form .field:has(input[type="date"]),
+.content form .field:has(input[type="datetime-local"]){
+  width:100%;
+  max-width:240px;
+  min-width:0;
+  justify-self:start;
+}
+.content form .field:has(input[type="date"]) input,
+.content form .field:has(input[type="datetime-local"]) input{
+  width:100%;
+  max-width:240px;
+}
+@media(max-width:760px){
+ .content form .field:has(input[type="date"]),
+ .content form .field:has(input[type="datetime-local"]){
+   max-width:100%;
+ }
+ .content form .field:has(input[type="date"]) input,
+ .content form .field:has(input[type="datetime-local"]) input{max-width:100%}
+}
 </style>
 </head>
 <body>
