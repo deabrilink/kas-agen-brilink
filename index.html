@@ -905,6 +905,44 @@ body{
   overflow-x:auto;
 }
 
+
+/* FINAL: crisp page artwork, no glass or blur on the workspace */
+body{
+  background-color:#eef5ff !important;
+  background-image:url('./bg-halaman.webp') !important;
+  background-size:cover !important;
+  background-position:center top !important;
+  background-repeat:no-repeat !important;
+  background-attachment:fixed !important;
+}
+.main{
+  background:transparent !important;
+}
+.main::before{display:none !important;content:none !important}
+.topbar{
+  background:#ffffff !important;
+  -webkit-backdrop-filter:none !important;
+  backdrop-filter:none !important;
+}
+.content .panel,
+.content .stat,
+.content .table-wrap,
+.content .account{
+  -webkit-backdrop-filter:none !important;
+  backdrop-filter:none !important;
+}
+.content .panel{
+  background:#ffffff !important;
+  border:1px solid #dce7f5 !important;
+  box-shadow:0 5px 16px rgba(35,68,110,.07) !important;
+}
+.content .stat{
+  box-shadow:0 5px 14px rgba(35,68,110,.07) !important;
+}
+@media(max-width:760px){
+  .content .panel{-webkit-backdrop-filter:none !important;backdrop-filter:none !important}
+}
+
 </style>
 </head>
 <body>
