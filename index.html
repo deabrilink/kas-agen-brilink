@@ -978,6 +978,23 @@ body{
   }
 }
 
+
+/* GLOBAL TABLE COLUMN SIZING: fit each column to its content */
+.content .table-wrap table{
+  width:max-content;
+  min-width:100%;
+  table-layout:auto;
+}
+.content .table-wrap th,
+.content .table-wrap td{
+  width:auto;
+  white-space:nowrap;
+  vertical-align:middle;
+}
+.content .table-wrap th:first-child,
+.content .table-wrap td:first-child{
+  width:1%;
+}
 </style>
 </head>
 <body>
