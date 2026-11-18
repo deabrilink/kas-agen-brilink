@@ -1046,6 +1046,53 @@ body{
  .content form .field:has(input[type="date"]) input,
  .content form .field:has(input[type="datetime-local"]) input{max-width:100%}
 }
+
+/* FINAL PAGE HEADER CLEANUP + CONSISTENT MENU TITLES */
+/* Remove the duplicate top header on every page; keep the mobile menu toggle available */
+.main > .topbar{
+  display:none !important;
+}
+@media(max-width:760px){
+  .main > .topbar{
+    display:block !important;
+    position:static !important;
+    height:0 !important;
+    min-height:0 !important;
+    padding:0 !important;
+    border:0 !important;
+    overflow:visible !important;
+    background:transparent !important;
+    box-shadow:none !important;
+  }
+  .main > .topbar > :not(.menu-toggle){display:none !important}
+  .main > .topbar > .menu-toggle{
+    display:block !important;
+    position:fixed !important;
+    top:12px !important;
+    left:14px !important;
+    z-index:100 !important;
+    width:40px !important;
+    height:40px !important;
+    border-radius:12px !important;
+  }
+}
+/* Clear, bold, consistent page titles across Dashboard and every menu */
+.content .page-title h1{
+  color:#102b4e !important;
+  font-family:Inter,ui-sans-serif,system-ui,-apple-system,"Segoe UI",Arial,sans-serif !important;
+  font-size:24px !important;
+  font-weight:850 !important;
+  line-height:1.2 !important;
+  letter-spacing:-.55px !important;
+  text-shadow:0 1px 0 rgba(255,255,255,.55);
+}
+.content .page-title p{
+  color:#526b8b !important;
+  font-weight:500 !important;
+}
+@media(max-width:760px){
+  .content .page-title h1{font-size:21px !important}
+}
 </style>
 </head>
 <body>
