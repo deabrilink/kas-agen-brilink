@@ -1103,8 +1103,9 @@ body{
 }
 .dashboard-total-card .total-card-toggle:hover{background:rgba(255,255,255,.22)}
 .dashboard-total-card .total-card-caption{display:block;transition:opacity .15s ease}
-.dashboard-total-card.is-collapsed{min-height:64px!important;height:64px;padding:12px 48px 12px 16px!important;display:flex;flex-direction:column;justify-content:center}
-.dashboard-total-card.is-collapsed .value{margin:5px 0 0!important;font-size:19px!important}
+.dashboard-total-card.is-collapsed{min-height:64px!important;height:64px!important;max-height:64px!important;padding:10px 48px 10px 16px!important;display:flex!important;flex-direction:column;justify-content:center;gap:0!important;overflow:hidden}
+.dashboard-total-card.is-collapsed .label{margin:0!important;line-height:1.15}
+.dashboard-total-card.is-collapsed .value{margin:4px 0 0!important;font-size:19px!important;line-height:1.15}
 .dashboard-total-card.is-collapsed .total-card-caption{display:none!important}
 .dashboard-total-card.is-collapsed .total-card-toggle{top:50%;transform:translateY(-50%)}
 .dashboard-total-card.is-collapsed .toggle-chevron{display:inline-block;transform:rotate(180deg)}
@@ -1161,7 +1162,7 @@ body{
       <section class="page active" id="page-dashboard">
         <div class="page-title"><div><h1>Dashboard</h1><p>Ringkasan kondisi keuangan dan penutupan kas harian agen.</p></div></div>
         <div class="grid stats">
-          <div class="stat dashboard-total-card" id="dashboardTotalCard"><div class="label">Total Saldo Tersedia</div><button class="total-card-toggle" id="toggleDashboardTotal" type="button" onclick="toggleDashboardTotalCard()" aria-label="Ciutkan kartu total saldo" aria-expanded="true" title="Ciutkan kartu"><span class="toggle-chevron">⌃</span></button><div class="value" id="dashTotal">Rp 0</div><small class="total-card-caption">Seluruh rekening dan uang cash</small></div>
+          <div class="stat dashboard-total-card" id="dashboardTotalCard"><div class="label">Total Saldo Tersedia</div><button class="total-card-toggle" id="toggleDashboardTotal" type="button" data-action="toggle-dashboard-total" aria-label="Ciutkan kartu total saldo" aria-expanded="true" title="Ciutkan kartu"><span class="toggle-chevron">⌃</span></button><div class="value" id="dashTotal">Rp 0</div><small class="total-card-caption">Seluruh rekening dan uang cash</small></div>
           <div class="stat"><div class="label">Total Pemasukan Hari Ini</div><div class="value" id="dashIncome">Rp 0</div><small>Mutasi masuk hari ini</small></div>
           <div class="stat"><div class="label">Total Pengeluaran Hari Ini</div><div class="value" id="dashExpense">Rp 0</div><small>Mutasi keluar hari ini</small></div>
           <div class="stat"><div class="label">Jumlah Transaksi Hari Ini</div><div class="value" id="dashCount">0</div><small>Transaksi tercatat</small></div>
@@ -1400,7 +1401,7 @@ let activeSimulationSaved=false;
 let activeSimulationSnapshot=null;
 let selectedCustomer='';
 
-function toggleDashboardTotalCard(){
+window.toggleDashboardTotalCard=function(){
  const card=document.getElementById('dashboardTotalCard');
  const button=document.getElementById('toggleDashboardTotal');
  if(!card||!button)return;
@@ -1408,8 +1409,13 @@ function toggleDashboardTotalCard(){
  button.setAttribute('aria-expanded',String(!collapsed));
  button.setAttribute('aria-label',collapsed?'Perluas kartu total saldo':'Ciutkan kartu total saldo');
  button.title=collapsed?'Perluas kartu':'Ciutkan kartu';
- button.querySelector('.toggle-chevron').textContent=collapsed?'⌄':'⌃';
-}
+ const chevron=button.querySelector('.toggle-chevron');
+ if(chevron)chevron.textContent=collapsed?'⌄':'⌃';
+};
+document.addEventListener('DOMContentLoaded',function(){
+ const button=document.getElementById('toggleDashboardTotal');
+ if(button)button.addEventListener('click',window.toggleDashboardTotalCard);
+});
 function toggleSidebar(){document.getElementById('sidebar').classList.toggle('open');document.getElementById('overlay').classList.toggle('show')}
 function showPage(name){
  const target=document.getElementById('page-'+name);
