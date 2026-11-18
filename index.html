@@ -1697,7 +1697,7 @@ function saveNextDaySimulation(){
  activeSimulationSnapshot=saved;
  setSimulationSavedState(true);
  refresh();
- alert('Simulasi berhasil diterapkan. Total Saldo Tersedia, saldo rekening, saldo titipan, dan tabel Sesi Akhir sudah diperbarui.');
+ showCenterAlert();
 }
 function resetNextDaySimulation(){
  ['simIncome','simExpense','simDepositIn','simDepositOut'].forEach(id=>document.getElementById(id).value='');
@@ -1743,13 +1743,13 @@ function renderAccountControls(){
  const filled=ACCOUNTS.filter(a=>actualBalances[a]!==undefined);const sum=filled.reduce((n,a)=>n+actualBalances[a]-balance(a),0);reconciliationStatus.textContent=filled.length?`${filled.length} dari ${ACCOUNTS.length} rekening diperiksa. Total selisih pada rekening yang diisi: ${sum>0?'+':''}${money(sum)}.`:'Isi saldo aktual untuk memulai rekonsiliasi.';
  document.querySelectorAll('.actual-balance-input').forEach(el=>el.addEventListener('change',()=>{const a=el.dataset.account;if(el.value.trim()==='')delete actualBalances[a];else actualBalances[a]=parseMoney(el.value);persistData();renderAccountControls()}));
 }
-function saveMinimumBalances(){ACCOUNTS.forEach(a=>minimumBalances[a]=parseMoney(document.getElementById('min-'+a).value));persistData();refresh();alert('Batas saldo minimum berhasil disimpan.');}
+function saveMinimumBalances(){ACCOUNTS.forEach(a=>minimumBalances[a]=parseMoney(document.getElementById('min-'+a).value));persistData();refresh();showCenterAlert();}
 function buildMinimumSettings(){document.getElementById('minimumBalanceSettings').innerHTML=ACCOUNTS.map(a=>`<div class="field"><label>${a}</label><input id="min-${a}" class="money-input" inputmode="numeric" value="${formatMoneyInput(minimumBalances[a]||0)}" placeholder="0 = nonaktif"></div>`).join('');}
 const DATA_KEYS=['opening','openingConfigured','openingDate','balanceAmountVisible','ledger','transactions','debts','payments','operations','transfers','fees','sales','deposits','savedSimulations','physicalCashByDate','minimumBalances','actualBalances'];
 function persistData(){try{const data={opening,openingConfigured,openingDate,balanceAmountVisible,ledger,transactions,debts,payments,operations,transfers,fees,sales,deposits,savedSimulations,physicalCashByDate,minimumBalances,actualBalances};localStorage.setItem('kasAgenBrilinkData_v121',JSON.stringify(data));}catch(e){console.warn('Penyimpanan lokal gagal',e)}}
 function restoreData(data){if(!data||typeof data!=='object')throw new Error('Format backup tidak valid.');DATA_KEYS.forEach(k=>{if(data[k]!==undefined){if(k==='opening')opening=data[k];else if(k==='openingConfigured')openingConfigured=data[k];else if(k==='openingDate')openingDate=data[k];else if(k==='balanceAmountVisible')balanceAmountVisible=data[k];else if(k==='ledger')ledger=data[k];else if(k==='transactions')transactions=data[k];else if(k==='debts')debts=data[k];else if(k==='payments')payments=data[k];else if(k==='operations')operations=data[k];else if(k==='transfers')transfers=data[k];else if(k==='fees')fees=data[k];else if(k==='sales')sales=data[k];else if(k==='deposits')deposits=data[k];else if(k==='savedSimulations')savedSimulations=data[k];else if(k==='physicalCashByDate')Object.assign(physicalCashByDate,data[k]);else if(k==='minimumBalances')minimumBalances=data[k];else if(k==='actualBalances')actualBalances=data[k];}});}
 function exportBackup(){const data={app:'Kas Agen BRILink',version:'1.21',exportedAt:new Date().toISOString(),opening,openingConfigured,openingDate,balanceAmountVisible,ledger,transactions,debts,payments,operations,transfers,fees,sales,deposits,savedSimulations,physicalCashByDate,minimumBalances,actualBalances};const blob=new Blob([JSON.stringify(data,null,2)],{type:'application/json'});const url=URL.createObjectURL(blob);const a=document.createElement('a');a.href=url;a.download='backup-kas-agen-brilink-'+dateKeyLocal()+'.json';a.click();URL.revokeObjectURL(url);document.getElementById('backupStatus').textContent='Backup berhasil dibuat. Simpan file JSON tersebut di tempat aman.';}
-function importBackup(event){const file=event.target.files?.[0];if(!file)return;const reader=new FileReader();reader.onload=()=>{try{const data=JSON.parse(reader.result);if(!confirm('Pulihkan data dari file ini? Data yang sedang terbuka akan diganti.'))return;restoreData(data);persistData();buildSettings();buildMinimumSettings();setDefaults();refresh();document.getElementById('backupStatus').textContent='Data berhasil dipulihkan dari '+file.name;alert('Pemulihan data berhasil.');}catch(err){alert('File backup tidak dapat dibaca: '+err.message)}event.target.value='';};reader.readAsText(file);}
+function importBackup(event){const file=event.target.files?.[0];if(!file)return;const reader=new FileReader();reader.onload=()=>{try{const data=JSON.parse(reader.result);if(!confirm('Pulihkan data dari file ini? Data yang sedang terbuka akan diganti.'))return;restoreData(data);persistData();buildSettings();buildMinimumSettings();setDefaults();refresh();document.getElementById('backupStatus').textContent='Data berhasil dipulihkan dari '+file.name;showCenterAlert();}catch(err){alert('File backup tidak dapat dibaca: '+err.message)}event.target.value='';};reader.readAsText(file);}
 function loadLocalData(){try{const raw=localStorage.getItem('kasAgenBrilinkData_v121');if(raw)restoreData(JSON.parse(raw));}catch(e){console.warn('Data lokal tidak dapat dipulihkan',e)}}
 
 function refresh(){
@@ -1795,37 +1795,37 @@ document.getElementById('transactionForm').addEventListener('submit',e=>{
  addMove(account,0,'Transaksi Agen: '+service,'Catatan transaksi',t.note,t.date);
  if(agentFee)addMove(account,agentFee,'Fee Agen transaksi','Pemasukan fee','',t.date);
  if(bankFee)addMove(account,bankFee,'Fee Bank transaksi','Pemasukan fee','',t.date);
- e.target.reset();setDefaults();refresh();alert('Transaksi berhasil dicatat pada prototype. Pergerakan pokok saldo layanan perlu konfigurasi alur debit/kredit sebelum digunakan secara nyata.');
+ e.target.reset();setDefaults();refresh();showCenterAlert();
 });
 document.getElementById('debtForm').addEventListener('submit',e=>{
  e.preventDefault();const d={id:Date.now()+Math.random(),date:debtDate.value,name:debtName.value.trim(),account:debtAccount.value,service:debtService.value,amount:parseMoney(debtAmount.value),dueDate:document.getElementById('debtDueDate').value,note:debtNote.value};debts.push(d);
  // Hutang adalah piutang: tidak menambah saldo kas sampai pelanggan membayar.
- e.target.reset();setDefaults();refresh();alert('Catatan hutang berhasil disimpan.');
+ e.target.reset();setDefaults();refresh();showCenterAlert();
 });
 document.getElementById('paymentForm').addEventListener('submit',e=>{
  e.preventDefault();const id=+payDebtId.value,d=debts.find(x=>x.id===id),amount=parseMoney(payAmount.value),paid=payments.filter(x=>x.debtId===id).reduce((s,x)=>s+x.amount,0);
  if(!d||amount>d.amount-paid){alert('Jumlah pembayaran melebihi sisa hutang.');return}
  payments.push({debtId:id,date:payDate.value,amount,account:payAccount.value});addMove(payAccount.value,amount,'Pembayaran hutang '+d.name,'Pembayaran Hutang','',payDate.value);
- e.target.reset();setDefaults();refresh();alert('Pembayaran hutang berhasil dicatat.');
+ e.target.reset();setDefaults();refresh();showCenterAlert();
 });
 document.getElementById('opsForm').addEventListener('submit',e=>{
  e.preventDefault();const o={date:opsDate.value,account:opsAccount.value,type:opsType.value,category:opsCategory.value,amount:parseMoney(opsAmount.value),note:opsNote.value};operations.push(o);addMove(o.account,o.type==='in'?o.amount:-o.amount,'Operasional: '+o.category,o.type==='in'?'Operasional Masuk':'Operasional Keluar',o.note,o.date);
- e.target.reset();setDefaults();refresh();alert('Catatan operasional berhasil disimpan.');
+ e.target.reset();setDefaults();refresh();showCenterAlert();
 });
 document.getElementById('transferForm').addEventListener('submit',e=>{
  e.preventDefault();const from=transferFrom.value,to=transferTo.value,amount=parseMoney(transferAmount.value),fee=parseMoney(transferFee.value);
  if(from===to){alert('Rekening asal dan tujuan harus berbeda.');return}
  if(balance(from)<amount+fee){alert('Saldo rekening asal tidak mencukupi.');return}
  const t={date:transferDate.value,from,to,amount,fee};transfers.push(t);addMove(from,-(amount+fee),'Pindah saldo ke '+to,'Transfer Keluar','',t.date);addMove(to,amount,'Pindah saldo dari '+from,'Transfer Masuk','',t.date);if(fee)addMove(from,-fee,'Biaya admin pindah saldo','Biaya Admin','',t.date);
- e.target.reset();setDefaults();refresh();alert('Pindah saldo berhasil dicatat.');
+ e.target.reset();setDefaults();refresh();showCenterAlert();
 });
 document.getElementById('feeForm').addEventListener('submit',e=>{
  e.preventDefault();const f={date:feeDate.value,type:feeType.value,amount:parseMoney(feeAmount.value),account:feeAccount.value,note:feeNote.value};fees.push(f);addMove(f.account,f.amount,f.type,'Pemasukan Fee',f.note,f.date);
- e.target.reset();setDefaults();refresh();alert('Fee berhasil dicatat.');
+ e.target.reset();setDefaults();refresh();showCenterAlert();
 });
 document.getElementById('salesForm').addEventListener('submit',e=>{
  e.preventDefault();const s={date:salesDate.value,type:salesType.value,amount:parseMoney(salesAmount.value),account:salesAccount.value,note:salesNote.value};sales.push(s);addMove(s.account,s.amount,'Penjualan Warung: '+s.type,'Penjualan',s.note,s.date);
- e.target.reset();setDefaults();refresh();alert('Penjualan berhasil dicatat.');
+ e.target.reset();setDefaults();refresh();showCenterAlert();
 });
 function openOpeningModal(){
  buildSettings();
@@ -1836,7 +1836,7 @@ function openOpeningModal(){
 function closeOpeningModal(){document.getElementById('openingModal').classList.remove('show');document.body.style.overflow='';}
 document.addEventListener('keydown',e=>{if(e.key==='Escape')closeOpeningModal()});
 document.getElementById('settingsForm').addEventListener('submit',e=>{
- e.preventDefault();ACCOUNTS.forEach(a=>{const v=document.getElementById('opening-'+a).value;opening[a]=parseMoney(v)});if(!openingConfigured)openingDate=dateKeyLocal();openingConfigured=true;document.getElementById('openOpeningModalBtn').textContent='✎ Ubah Saldo Awal';closeOpeningModal();refresh();alert('Saldo awal berhasil disimpan dan menjadi dasar perhitungan saldo.');
+ e.preventDefault();ACCOUNTS.forEach(a=>{const v=document.getElementById('opening-'+a).value;opening[a]=parseMoney(v)});if(!openingConfigured)openingDate=dateKeyLocal();openingConfigured=true;document.getElementById('openOpeningModalBtn').textContent='✎ Ubah Saldo Awal';closeOpeningModal();refresh();showCenterAlert();
 });
 function buildSettings(){document.getElementById('openingBalanceFields').innerHTML=ACCOUNTS.map(a=>`<div class="field"><label>${a}</label><input id="opening-${a}" type="text" inputmode="numeric" autocomplete="off" class="money-input" value="${formatMoneyInput(opening[a])}" placeholder="Saldo awal Rp"></div>`).join('')}
 document.getElementById('globalSearch').addEventListener('keydown',e=>{if(e.key==='Enter'){showPage('riwayat');document.getElementById('historyType').value='';searchHistory()}});
@@ -1850,7 +1850,7 @@ document.getElementById('depositForm').addEventListener('submit',e=>{
  if(type==='in')addMove(account,amount,'Saldo titipan masuk: '+name,'Titipan Masuk',note,date);
  if(type==='out')addMove(account,-amount,'Pengembalian saldo titipan: '+name,'Pengembalian Titipan',note,date);
  deposits.push({date,name,type,account,amount,note});
- e.target.reset();setDefaults();refresh();alert('Catatan saldo titipan berhasil disimpan.');
+ e.target.reset();setDefaults();refresh();showCenterAlert();
 });
 loadLocalData();setDefaults();buildSettings();buildMinimumSettings();refresh();searchHistory();
 </script>
@@ -1881,7 +1881,7 @@ loadLocalData();setDefaults();buildSettings();buildMinimumSettings();refresh();s
 </script>
 
 <script>
-/* CENTER ALERT CONTROLLER */
+/* CENTER ALERT CONTROLLER: success only, triggered after a completed save */
 (function(){
  const overlay=document.createElement('div');
  overlay.id='appCenterAlert';
@@ -1890,18 +1890,10 @@ loadLocalData();setDefaults();buildSettings();buildMinimumSettings();refresh();s
  overlay.innerHTML='<div class="center-alert-card"><div class="center-alert-icon"><svg viewBox="0 0 56 56" aria-hidden="true"><circle class="check-circle" cx="28" cy="28" r="25"></circle><path class="check-mark" d="M15 29.5 23.5 38 41.5 19.5"></path></svg></div><div class="center-alert-title">Berhasil</div></div>';
  document.body.appendChild(overlay);
  let hideTimer;
- window.alert=function(message){
-   const value=String(message||'');
-   const isError=/gagal|tidak dapat|melebihi|tidak mencukupi|error/i.test(value);
-   const isWarning=/pilih|harus|periksa|belum dapat|tidak valid/i.test(value);
-   const title=isError?'Tidak Berhasil':isWarning?'Perhatian':'Berhasil';
+ window.showCenterAlert=function(){
    overlay.classList.remove('is-error','is-warning','is-visible');
    void overlay.offsetWidth;
-   overlay.querySelector('.center-alert-title').textContent=title;
-   overlay.classList.toggle('is-error',isError);
-   overlay.classList.toggle('is-warning',isWarning);
-   const icon=overlay.querySelector('.center-alert-icon');
-   icon.innerHTML='<svg viewBox="0 0 56 56" aria-hidden="true"><circle class="check-circle" cx="28" cy="28" r="25"></circle><path class="check-mark" d="M15 29.5 23.5 38 41.5 19.5"></path></svg>';
+   overlay.querySelector('.center-alert-title').textContent='Berhasil';
    overlay.classList.add('is-visible');
    clearTimeout(hideTimer);
    hideTimer=setTimeout(()=>overlay.classList.remove('is-visible'),1500);
